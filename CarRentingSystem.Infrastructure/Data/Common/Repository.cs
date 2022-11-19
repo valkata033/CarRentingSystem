@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CarRentingSystem.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
@@ -26,7 +27,7 @@ namespace HouseRentingSystem.Infrastructure.Data.Common
             return this.Context.Set<T>();
         }
 
-        public Repository(HouseRentingDbContext context)
+        public Repository(CarRentingDbContext context)
         {
             Context = context;
         }

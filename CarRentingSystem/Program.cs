@@ -1,5 +1,5 @@
 ﻿using CarRentingSystem.Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
+using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +9,7 @@ builder.Services.AddDbContext<CarRentingDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<CarRentingDbContext>();
 builder.Services.AddControllersWithViews();
 
