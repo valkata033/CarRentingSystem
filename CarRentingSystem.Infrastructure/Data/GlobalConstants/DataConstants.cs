@@ -47,10 +47,12 @@
             public const int CityNameMaxValue = 50;
         }
 
-        public static class Showroom
+        public static class Dealership
         {
-            public const int ShowroomNameMinValue = 2;
-            public const int ShowroomNameMaxValue = 50;
+            public const int DealershipNameMinValue = 2;
+            public const int DealershipNameMaxValue = 50;
+            public const int DealershipAddressMinValue = 10;
+            public const int DealershipAddressMaxValue = 100;
         }
     }
 }

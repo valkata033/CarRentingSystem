@@ -1,5 +1,4 @@
 ﻿using CarRentingSystem.Infrastructure.Data.GlobalConstants;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,9 +29,6 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        public bool IsRented { get; set; }
-
-        [Required]
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public Category Category { get; set; } = null!;
@@ -42,11 +38,11 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         public int DealerId { get; set; }
         public Dealer Dealer { get; set; } = null!;
 
-        [Required]
         [ForeignKey(nameof(Reservation))]
-        public int ReservationId { get; set; }
+        public int? ReservationId { get; set; }
 
-        public Reservation Reservation { get; set; } = null!;
+        public Reservation? Reservation { get; set; }
 
+        public string? RenterId { get; set; }
     }
 }

@@ -13,18 +13,34 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
 
         private List<City> CreateCities()
         {
-            var cities = new List<City>();
-
-            var city = new City()
+            return new List<City>()
             {
-                Id = 1,
-                Name = "Sofia",
-                
+                new City()
+                {
+                    Id = 1,
+                    Name = "Sofia",
+                },
+                new City()
+                {
+                    Id = 2,
+                    Name = "Plovdiv",
+                },
+                new City()
+                {
+                    Id = 3,
+                    Name = "Burgas",
+                },
+                new City()
+                {
+                    Id = 4,
+                    Name = "Vidin",
+                },
+                new City()
+                {
+                    Id = 5,
+                    Name = "Varna",
+                }
             };
-            cities.Add(city);
-
-
-            return cities;
         }
     }
 }

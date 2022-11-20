@@ -4,14 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRentingSystem.Infrastructure.Data.Models
 {
-    public class Showroom
+    public class Dealership
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(DataConstants.Showroom.ShowroomNameMaxValue)]
+        [StringLength(DataConstants.Dealership.DealershipNameMaxValue)]
         public string Name { get; set; } = null!;
+
+        [Required]
+        [StringLength(DataConstants.Dealership.DealershipAddressMaxValue)]
+        public string Adderss { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(City))]
