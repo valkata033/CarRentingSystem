@@ -145,7 +145,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PricePerMonth = table.Column<decimal>(type: "money", precision: 18, scale: 2, nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
@@ -177,6 +176,27 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ReservationPeriods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Days = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    ReservationId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationPeriods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReservationPeriods_Reservations_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CategoryId",
                 table: "Cars",
@@ -198,6 +218,11 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReservationPeriods_ReservationId",
+                table: "ReservationPeriods",
+                column: "ReservationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Showrooms_CityId",
                 table: "Showrooms",
                 column: "CityId");
@@ -212,6 +237,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Cars");
+
+            migrationBuilder.DropTable(
+                name: "ReservationPeriods");
 
             migrationBuilder.DropTable(
                 name: "Showrooms");

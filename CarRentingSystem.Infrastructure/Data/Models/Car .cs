@@ -19,12 +19,6 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         public string Model { get; set; } = null!;
 
         [Required]
-        [Column(TypeName = DataConstants.Car.CarPriceSQLDataType)]
-        [Precision(DataConstants.Car.CarPriceLength, DataConstants.Car.CarPricePrecision)]
-        [Range(typeof(decimal), DataConstants.Car.CarPriceMinValue, DataConstants.Car.CarPriceMaxValue)]
-        public decimal PricePerMonth { get; set; }
-
-        [Required]
         public int Year { get; set; }
 
         [Required]

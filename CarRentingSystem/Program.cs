@@ -1,4 +1,5 @@
-﻿using CarRentingSystem.Infrastructure.Data;
+﻿using CarRentingSystem.Extensions;
+using CarRentingSystem.Infrastructure.Data;
 using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +10,19 @@ builder.Services.AddDbContext<CarRentingDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:RequireConfirmedAccount");
+    options.SignIn.RequireConfirmedEmail = builder.Configuration.GetValue<bool>("Identity:RequireConfirmedEmail");
+    options.SignIn.RequireConfirmedPhoneNumber = builder.Configuration.GetValue<bool>("Identity:RequireConfirmedPhoneNumber");
+    options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Identity:RequireNonAlphanumeric");
+    options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:RequiredLength");
+})
     .AddEntityFrameworkStores<CarRentingDbContext>();
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddApplicationsServices();
 
 var app = builder.Build();
 

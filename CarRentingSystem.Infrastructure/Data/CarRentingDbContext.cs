@@ -21,6 +21,8 @@ namespace CarRentingSystem.Infrastructure.Data
 
         public DbSet<Reservation> Reservations { get; set; }
 
+        public DbSet<ReservationPeriod> ReservationPeriods { get; set; }
+
         public DbSet<Showroom> Showrooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

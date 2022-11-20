@@ -14,5 +14,7 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         public DateTime EndDate { get; set; }
 
         public IEnumerable<Car> Cars { get; set; } = new List<Car>();
+
+        public IEnumerable<ReservationPeriod> ReservationPeriods { get; set; } = new List<ReservationPeriod>();
     }
 }

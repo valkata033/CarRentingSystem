@@ -136,10 +136,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("PricePerMonth")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("money");
-
                     b.Property<int>("ReservationId")
                         .HasColumnType("int");
 
@@ -239,6 +235,30 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.ReservationPeriod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationPeriods");
                 });
 
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Showroom", b =>
@@ -444,6 +464,17 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.ReservationPeriod", b =>
+                {
+                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.Reservation", "Reservation")
+                        .WithMany("ReservationPeriods")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reservation");
+                });
+
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Showroom", b =>
                 {
                     b.HasOne("CarRentingSystem.Infrastructure.Data.Models.City", "City")
@@ -532,6 +563,8 @@ namespace CarRentingSystem.Infrastructure.Migrations
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Reservation", b =>
                 {
                     b.Navigation("Cars");
+
+                    b.Navigation("ReservationPeriods");
                 });
 #pragma warning restore 612, 618
         }
