@@ -21,14 +21,10 @@ namespace CarRentingSystem.Infrastructure.Data
 
         public DbSet<Reservation> Reservations { get; set; }
 
-        public DbSet<CityDealer> CitiesDealers { get; set; }
-
+        public DbSet<Showroom> Showrooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<CityDealer>()
-                .HasKey(x => new { x.CityId, x.DealerId });
-
             builder.Entity<ApplicationUser>()
                 .Property(x => x.UserName)
                 .HasMaxLength(30)

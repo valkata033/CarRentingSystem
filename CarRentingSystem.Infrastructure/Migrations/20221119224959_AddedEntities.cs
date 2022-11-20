@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarRentingSystem.Infrastructure.Migrations
 {
-    public partial class EntitiesAdded : Migration
+    public partial class AddedEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,22 +76,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DealerId = table.Column<int>(type: "int", nullable: false),
-                    CarId = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Dealers",
                 columns: table => new
                 {
@@ -99,8 +83,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CityId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,11 +94,47 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Showrooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    DealerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Showrooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Dealers_Cities_CityId",
+                        name: "FK_Showrooms_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Showrooms_Dealers_DealerId",
+                        column: x => x.DealerId,
+                        principalTable: "Dealers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,7 +151,8 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     ImageUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     IsRented = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    DealerId = table.Column<int>(type: "int", nullable: false)
+                    DealerId = table.Column<int>(type: "int", nullable: false),
+                    ReservationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,28 +169,10 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         principalTable: "Dealers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CitiesDealers",
-                columns: table => new
-                {
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    DealerId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CitiesDealers", x => new { x.CityId, x.DealerId });
                     table.ForeignKey(
-                        name: "FK_CitiesDealers_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CitiesDealers_Dealers_DealerId",
-                        column: x => x.DealerId,
-                        principalTable: "Dealers",
+                        name: "FK_Cars_Reservations_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -186,19 +188,24 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 column: "DealerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CitiesDealers_DealerId",
-                table: "CitiesDealers",
-                column: "DealerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dealers_CityId",
-                table: "Dealers",
-                column: "CityId");
+                name: "IX_Cars_ReservationId",
+                table: "Cars",
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dealers_UserId",
                 table: "Dealers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Showrooms_CityId",
+                table: "Showrooms",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Showrooms_DealerId",
+                table: "Showrooms",
+                column: "DealerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -207,19 +214,19 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 name: "Cars");
 
             migrationBuilder.DropTable(
-                name: "CitiesDealers");
-
-            migrationBuilder.DropTable(
-                name: "Reservations");
+                name: "Showrooms");
 
             migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Dealers");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "Dealers");
 
             migrationBuilder.DropColumn(
                 name: "EGN",

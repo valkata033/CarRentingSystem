@@ -46,5 +46,11 @@
             public const int CityNameMinValue = 2;
             public const int CityNameMaxValue = 50;
         }
+
+        public static class Showroom
+        {
+            public const int ShowroomNameMinValue = 2;
+            public const int ShowroomNameMaxValue = 50;
+        }
     }
 }

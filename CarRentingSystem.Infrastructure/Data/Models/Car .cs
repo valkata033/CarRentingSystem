@@ -47,6 +47,12 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         [ForeignKey(nameof(Dealer))]
         public int DealerId { get; set; }
         public Dealer Dealer { get; set; } = null!;
-        
+
+        [Required]
+        [ForeignKey(nameof(Reservation))]
+        public int ReservationId { get; set; }
+
+        public Reservation Reservation { get; set; } = null!;
+
     }
 }

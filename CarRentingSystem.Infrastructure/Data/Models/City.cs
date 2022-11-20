@@ -12,6 +12,7 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         [StringLength(DataConstants.City.CityNameMaxValue)]
         public string Name { get; set; } = null!;
 
-        public IEnumerable<Dealer> Dealers { get; set; } = new List<Dealer>();
+        public IEnumerable<Showroom> Showrooms { get; set; } = new List<Showroom>();
+
     }
 }

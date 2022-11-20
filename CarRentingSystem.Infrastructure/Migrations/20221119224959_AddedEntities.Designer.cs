@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentingSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    [Migration("20221119110932_EntitiesAdded")]
-    partial class EntitiesAdded
+    [Migration("20221119224959_AddedEntities")]
+    partial class AddedEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,6 +142,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("money");
 
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
@@ -150,6 +153,8 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("DealerId");
+
+                    b.HasIndex("ReservationId");
 
                     b.ToTable("Cars");
                 });
@@ -190,21 +195,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.CityDealer", b =>
-                {
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DealerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CityId", "DealerId");
-
-                    b.HasIndex("DealerId");
-
-                    b.ToTable("CitiesDealers");
-                });
-
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Dealer", b =>
                 {
                     b.Property<int>("Id")
@@ -212,9 +202,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -232,8 +219,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Dealers");
@@ -247,12 +232,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DealerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -262,6 +241,34 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Showroom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DealerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("DealerId");
+
+                    b.ToTable("Showrooms");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -415,15 +422,34 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.Reservation", "Reservation")
+                        .WithMany("Cars")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
                     b.Navigation("Dealer");
+
+                    b.Navigation("Reservation");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.CityDealer", b =>
+            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Dealer", b =>
+                {
+                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Showroom", b =>
                 {
                     b.HasOne("CarRentingSystem.Infrastructure.Data.Models.City", "City")
-                        .WithMany()
+                        .WithMany("Showrooms")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -437,21 +463,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Dealer");
-                });
-
-            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Dealer", b =>
-                {
-                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.City", null)
-                        .WithMany("Dealers")
-                        .HasForeignKey("CityId");
-
-                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -512,10 +523,15 @@ namespace CarRentingSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.City", b =>
                 {
-                    b.Navigation("Dealers");
+                    b.Navigation("Showrooms");
                 });
 
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Dealer", b =>
+                {
+                    b.Navigation("Cars");
+                });
+
+            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Reservation", b =>
                 {
                     b.Navigation("Cars");
                 });
