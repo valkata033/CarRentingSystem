@@ -19,7 +19,9 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                 {
                     Id = 1,
                     StartDate = DateTime.Now,
-                    EndDate = DateTime.Now + TimeSpan.FromDays(7)
+                    EndDate = DateTime.Now + TimeSpan.FromDays(5),
+                    CarId = 1,
+                    ReservationPeriodId = 2,
                 }
             };
         }

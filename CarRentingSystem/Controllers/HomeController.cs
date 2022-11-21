@@ -1,4 +1,5 @@
-﻿using CarRentingSystem.Models;
+﻿using CarRentingSystem.Core.Contracts;
+using CarRentingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,9 +7,18 @@ namespace CarRentingSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ICarService cars;
+
+        public HomeController(ICarService _cars)
         {
-            return View();
+            cars = _cars;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = await cars.GetAllCarsAsync();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

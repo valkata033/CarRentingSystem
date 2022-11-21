@@ -25,6 +25,9 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         public string Description { get; set; } = null!;
 
         [Required]
+        public int PricePerDay { get; set; }
+
+        [Required]
         [StringLength(DataConstants.Car.CarImageUrlMaxValue)]
         public string ImageUrl { get; set; } = null!;
 
@@ -37,11 +40,6 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         [ForeignKey(nameof(Dealer))]
         public int DealerId { get; set; }
         public Dealer Dealer { get; set; } = null!;
-
-        [ForeignKey(nameof(Reservation))]
-        public int? ReservationId { get; set; }
-
-        public Reservation? Reservation { get; set; }
 
         public string? RenterId { get; set; }
     }

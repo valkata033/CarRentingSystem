@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRentingSystem.Infrastructure.Data.Models
 {
@@ -13,8 +14,15 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         [Required]
         public DateTime EndDate { get; set; }
 
-        public IEnumerable<Car> Cars { get; set; } = new List<Car>();
+        [Required]
+        [ForeignKey(nameof(Car))]
+        public int CarId { get; set; }
+        public Car Car { get; set; } = null!;
 
-        public IEnumerable<ReservationPeriod> ReservationPeriods { get; set; } = new List<ReservationPeriod>();
+        [Required]
+        [ForeignKey(nameof(ReservationPeriod))]
+        public int ReservationPeriodId { get; set; }
+        public ReservationPeriod ReservationPeriod { get; set; } = null!;
+
     }
 }

@@ -89,17 +89,50 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
+                name: "ReservationPeriods",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Days = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.PrimaryKey("PK_ReservationPeriods", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cars",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    PricePerDay = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    DealerId = table.Column<int>(type: "int", nullable: false),
+                    RenterId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cars_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cars_Dealers_DealerId",
+                        column: x => x.DealerId,
+                        principalTable: "Dealers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -131,60 +164,29 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cars",
+                name: "Reservations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    DealerId = table.Column<int>(type: "int", nullable: false),
-                    ReservationId = table.Column<int>(type: "int", nullable: true),
-                    RenterId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CarId = table.Column<int>(type: "int", nullable: false),
+                    ReservationPeriodId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cars_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        name: "FK_Reservations_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cars_Dealers_DealerId",
-                        column: x => x.DealerId,
-                        principalTable: "Dealers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Cars_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReservationPeriods",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Days = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    ReservationId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservationPeriods", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ReservationPeriods_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
+                        name: "FK_Reservations_ReservationPeriods_ReservationPeriodId",
+                        column: x => x.ReservationPeriodId,
+                        principalTable: "ReservationPeriods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -194,8 +196,8 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "56266a5d-8052-48b7-b385-03d595defd8c", "guest@mail.com", false, "Guest", false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEHGesrYwijz+t9EBqzlAogCjbQrMUjfJiBB5/ZTI5NjFbrSEu4AsnN5uCFiQYHmpbw==", null, false, "069c7a03-88d7-4246-9622-769c52b5204c", false, "guest@mail.com" },
-                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "3b38ec04-2125-45de-be67-3b365a7c7cd9", "dealer@mail.com", false, "Dealer", false, null, "dealer@mail.com", "dealer@mail.com", "AQAAAAEAACcQAAAAECDTRO5mu937CoINu0ji6b0jJ9eJWaWBIDoYyFXcTVSNa+bh+KaPyjxwNyuIsrBrlQ==", null, false, "57331a61-bc75-49b7-af8d-cae81129c62e", false, "dealer@mail.com" }
+                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "793aadec-0e3b-4cfa-91b1-4846318f28c2", "guest@mail.com", false, "Guest", false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEO/+QJzow4yVTvGOjueu09XLvzkaRnEhWrtZqW8kH1sE6q1T/uY4jCguqal05V6wPQ==", null, false, "b3901805-4a9b-4ea4-9f6d-eb5d6fe1ab4f", false, "guest@mail.com" },
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "0235b028-495e-4b7a-821a-a2aab82a4460", "dealer@mail.com", false, "Dealer", false, null, "dealer@mail.com", "dealer@mail.com", "AQAAAAEAACcQAAAAEArRN4wHjgBWwJp73x6WEFmSHSrjh5R8HzSWbQ1rFiZS0ag4yTQ4tXSufFWwVfO+Fw==", null, false, "710e6793-55d3-4c7b-a908-ceced274d684", false, "dealer@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -226,9 +228,15 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Reservations",
-                columns: new[] { "Id", "EndDate", "StartDate" },
-                values: new object[] { 1, new DateTime(2022, 11, 27, 20, 39, 21, 432, DateTimeKind.Local).AddTicks(321), new DateTime(2022, 11, 20, 20, 39, 21, 432, DateTimeKind.Local).AddTicks(287) });
+                table: "ReservationPeriods",
+                columns: new[] { "Id", "Days", "Price" },
+                values: new object[,]
+                {
+                    { 1, 3, 50 },
+                    { 2, 5, 250 },
+                    { 3, 10, 500 },
+                    { 4, 30, 1500 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Dealers",
@@ -242,21 +250,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ReservationPeriods",
-                columns: new[] { "Id", "Days", "Price", "ReservationId" },
-                values: new object[] { 1, 7, 200, 1 });
-
-            migrationBuilder.InsertData(
                 table: "Cars",
-                columns: new[] { "Id", "Brand", "CategoryId", "DealerId", "Description", "ImageUrl", "Model", "RenterId", "ReservationId", "Year" },
+                columns: new[] { "Id", "Brand", "CategoryId", "DealerId", "Description", "ImageUrl", "Model", "PricePerDay", "RenterId", "Year" },
                 values: new object[,]
                 {
-                    { 1, "BMW", 3, 2, "", "https://imgd.aeplcdn.com/0x0/ec/69/55/13232/img/l/BMW-5-Series-Front-view-27016.jpg?q=75", "530", "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 1, 2014 },
-                    { 2, "Mercedes", 3, 2, "", "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/800x450/format/jpg/quality/85/http://www.blogcdn.com/www.autoblog.com/media/2011/06/2012-mercedes-benz-c-class-coupe.jpg", "C 220", null, null, 2012 },
-                    { 3, "Mercedes", 3, 1, "", "https://paultan.org/image/2020/09/2021-W223-Mercedes-Benz-S-Class-White-9-1200x628.jpg", "S 500", null, null, 2020 },
-                    { 4, "Mazda", 1, 1, "", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2018/01/2018-10Best-Trucks-SUVs-Mazda-CX-5-2p5L-lp.jpg?resize=480:*", "CX-5", null, null, 2019 },
-                    { 5, "Porsche", 5, 4, "", "https://www.auto-data.net/images/f15/file6121570.jpg", "911 Turbo S", null, null, 2017 },
-                    { 6, "BMW", 6, 3, "", "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg", "M3", null, null, 2015 }
+                    { 1, "BMW", 3, 2, "Very good car for youngth renter or for family.", "https://imgd.aeplcdn.com/0x0/ec/69/55/13232/img/l/BMW-5-Series-Front-view-27016.jpg?q=75", "530", 50, "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 2014 },
+                    { 2, "Mercedes", 3, 2, "Very good car for family.", "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/800x450/format/jpg/quality/85/http://www.blogcdn.com/www.autoblog.com/media/2011/06/2012-mercedes-benz-c-class-coupe.jpg", "C 220", 35, null, 2012 },
+                    { 3, "Mercedes", 3, 1, "Very luxury car for rich people.", "https://paultan.org/image/2020/09/2021-W223-Mercedes-Benz-S-Class-White-9-1200x628.jpg", "S 500", 100, null, 2020 },
+                    { 4, "Mazda", 1, 1, "Very good for family car.", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2018/01/2018-10Best-Trucks-SUVs-Mazda-CX-5-2p5L-lp.jpg?resize=480:*", "CX-5", 80, null, 2019 },
+                    { 5, "Porsche", 5, 4, "Very fast car for people who want to make some new advantures.", "https://www.auto-data.net/images/f15/file6121570.jpg", "911 Turbo S", 110, null, 2017 },
+                    { 6, "BMW", 6, 3, "Very good car for youngth people and people who want to make some new advantures.", "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg", "M3", 75, null, 2015 }
                 });
 
             migrationBuilder.InsertData(
@@ -271,6 +274,11 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     { 5, "Varna Center", 5, 3, "Varna Dealership" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Reservations",
+                columns: new[] { "Id", "CarId", "EndDate", "ReservationPeriodId", "StartDate" },
+                values: new object[] { 1, 1, new DateTime(2022, 11, 26, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3512), 2, new DateTime(2022, 11, 21, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3478) });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CategoryId",
                 table: "Cars",
@@ -280,11 +288,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 name: "IX_Cars_DealerId",
                 table: "Cars",
                 column: "DealerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cars_ReservationId",
-                table: "Cars",
-                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dealers_UserId",
@@ -302,18 +305,29 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 column: "DealerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReservationPeriods_ReservationId",
-                table: "ReservationPeriods",
-                column: "ReservationId");
+                name: "IX_Reservations_CarId",
+                table: "Reservations",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservationPeriodId",
+                table: "Reservations",
+                column: "ReservationPeriodId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Cars");
+                name: "Dealerships");
 
             migrationBuilder.DropTable(
-                name: "Dealerships");
+                name: "Reservations");
+
+            migrationBuilder.DropTable(
+                name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "Cars");
 
             migrationBuilder.DropTable(
                 name: "ReservationPeriods");
@@ -322,13 +336,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Cities");
-
-            migrationBuilder.DropTable(
                 name: "Dealers");
-
-            migrationBuilder.DropTable(
-                name: "Reservations");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",

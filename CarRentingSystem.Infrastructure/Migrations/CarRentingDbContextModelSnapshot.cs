@@ -98,16 +98,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3b38ec04-2125-45de-be67-3b365a7c7cd9",
+                            ConcurrencyStamp = "0235b028-495e-4b7a-821a-a2aab82a4460",
                             Email = "dealer@mail.com",
                             EmailConfirmed = false,
                             FullName = "Dealer",
                             LockoutEnabled = false,
                             NormalizedEmail = "dealer@mail.com",
                             NormalizedUserName = "dealer@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAECDTRO5mu937CoINu0ji6b0jJ9eJWaWBIDoYyFXcTVSNa+bh+KaPyjxwNyuIsrBrlQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEArRN4wHjgBWwJp73x6WEFmSHSrjh5R8HzSWbQ1rFiZS0ag4yTQ4tXSufFWwVfO+Fw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "57331a61-bc75-49b7-af8d-cae81129c62e",
+                            SecurityStamp = "710e6793-55d3-4c7b-a908-ceced274d684",
                             TwoFactorEnabled = false,
                             UserName = "dealer@mail.com"
                         },
@@ -115,16 +115,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "56266a5d-8052-48b7-b385-03d595defd8c",
+                            ConcurrencyStamp = "793aadec-0e3b-4cfa-91b1-4846318f28c2",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FullName = "Guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHGesrYwijz+t9EBqzlAogCjbQrMUjfJiBB5/ZTI5NjFbrSEu4AsnN5uCFiQYHmpbw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO/+QJzow4yVTvGOjueu09XLvzkaRnEhWrtZqW8kH1sE6q1T/uY4jCguqal05V6wPQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "069c7a03-88d7-4246-9622-769c52b5204c",
+                            SecurityStamp = "b3901805-4a9b-4ea4-9f6d-eb5d6fe1ab4f",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -164,11 +164,11 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("PricePerDay")
+                        .HasColumnType("int");
+
                     b.Property<string>("RenterId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -179,8 +179,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
 
                     b.HasIndex("DealerId");
 
-                    b.HasIndex("ReservationId");
-
                     b.ToTable("Cars");
 
                     b.HasData(
@@ -190,11 +188,11 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Brand = "BMW",
                             CategoryId = 3,
                             DealerId = 2,
-                            Description = "",
+                            Description = "Very good car for youngth renter or for family.",
                             ImageUrl = "https://imgd.aeplcdn.com/0x0/ec/69/55/13232/img/l/BMW-5-Series-Front-view-27016.jpg?q=75",
                             Model = "530",
+                            PricePerDay = 50,
                             RenterId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                            ReservationId = 1,
                             Year = 2014
                         },
                         new
@@ -203,9 +201,10 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Brand = "Mercedes",
                             CategoryId = 3,
                             DealerId = 2,
-                            Description = "",
+                            Description = "Very good car for family.",
                             ImageUrl = "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/800x450/format/jpg/quality/85/http://www.blogcdn.com/www.autoblog.com/media/2011/06/2012-mercedes-benz-c-class-coupe.jpg",
                             Model = "C 220",
+                            PricePerDay = 35,
                             Year = 2012
                         },
                         new
@@ -214,9 +213,10 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Brand = "Mercedes",
                             CategoryId = 3,
                             DealerId = 1,
-                            Description = "",
+                            Description = "Very luxury car for rich people.",
                             ImageUrl = "https://paultan.org/image/2020/09/2021-W223-Mercedes-Benz-S-Class-White-9-1200x628.jpg",
                             Model = "S 500",
+                            PricePerDay = 100,
                             Year = 2020
                         },
                         new
@@ -225,9 +225,10 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Brand = "Mazda",
                             CategoryId = 1,
                             DealerId = 1,
-                            Description = "",
+                            Description = "Very good for family car.",
                             ImageUrl = "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2018/01/2018-10Best-Trucks-SUVs-Mazda-CX-5-2p5L-lp.jpg?resize=480:*",
                             Model = "CX-5",
+                            PricePerDay = 80,
                             Year = 2019
                         },
                         new
@@ -236,9 +237,10 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Brand = "Porsche",
                             CategoryId = 5,
                             DealerId = 4,
-                            Description = "",
+                            Description = "Very fast car for people who want to make some new advantures.",
                             ImageUrl = "https://www.auto-data.net/images/f15/file6121570.jpg",
                             Model = "911 Turbo S",
+                            PricePerDay = 110,
                             Year = 2017
                         },
                         new
@@ -247,9 +249,10 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Brand = "BMW",
                             CategoryId = 6,
                             DealerId = 3,
-                            Description = "",
+                            Description = "Very good car for youngth people and people who want to make some new advantures.",
                             ImageUrl = "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg",
                             Model = "M3",
+                            PricePerDay = 75,
                             Year = 2015
                         });
                 });
@@ -501,13 +504,23 @@ namespace CarRentingSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("ReservationPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("ReservationPeriodId");
 
                     b.ToTable("Reservations");
 
@@ -515,8 +528,10 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            EndDate = new DateTime(2022, 11, 27, 20, 39, 21, 432, DateTimeKind.Local).AddTicks(321),
-                            StartDate = new DateTime(2022, 11, 20, 20, 39, 21, 432, DateTimeKind.Local).AddTicks(287)
+                            CarId = 1,
+                            EndDate = new DateTime(2022, 11, 26, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3512),
+                            ReservationPeriodId = 2,
+                            StartDate = new DateTime(2022, 11, 21, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3478)
                         });
                 });
 
@@ -534,12 +549,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReservationId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
 
                     b.ToTable("ReservationPeriods");
 
@@ -547,9 +557,26 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Days = 7,
-                            Price = 200,
-                            ReservationId = 1
+                            Days = 3,
+                            Price = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Days = 5,
+                            Price = 250
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Days = 10,
+                            Price = 500
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Days = 30,
+                            Price = 1500
                         });
                 });
 
@@ -704,15 +731,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.Reservation", "Reservation")
-                        .WithMany("Cars")
-                        .HasForeignKey("ReservationId");
-
                     b.Navigation("Category");
 
                     b.Navigation("Dealer");
-
-                    b.Navigation("Reservation");
                 });
 
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Dealer", b =>
@@ -745,15 +766,23 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.Navigation("Dealer");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.ReservationPeriod", b =>
+            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Reservation", b =>
                 {
-                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.Reservation", "Reservation")
-                        .WithMany("ReservationPeriods")
-                        .HasForeignKey("ReservationId")
+                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Reservation");
+                    b.HasOne("CarRentingSystem.Infrastructure.Data.Models.ReservationPeriod", "ReservationPeriod")
+                        .WithMany()
+                        .HasForeignKey("ReservationPeriodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("ReservationPeriod");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -820,13 +849,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
             modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Dealer", b =>
                 {
                     b.Navigation("Cars");
-                });
-
-            modelBuilder.Entity("CarRentingSystem.Infrastructure.Data.Models.Reservation", b =>
-                {
-                    b.Navigation("Cars");
-
-                    b.Navigation("ReservationPeriods");
                 });
 #pragma warning restore 612, 618
         }

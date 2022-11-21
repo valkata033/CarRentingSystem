@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRentingSystem.Infrastructure.Data.Models
 {
@@ -13,12 +12,6 @@ namespace CarRentingSystem.Infrastructure.Data.Models
 
         [Required]
         public int Price { get; set; }
-
-        [Required]
-        [ForeignKey(nameof(Reservation))]
-        public int ReservationId { get; set; }
-
-        public Reservation Reservation { get; set; } = null!;
 
     }
 }

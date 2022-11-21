@@ -10,8 +10,4 @@
     <ProjectReference Include="..\CarRentingSystem.Infrastructure\CarRentingSystem.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
