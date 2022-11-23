@@ -1,4 +1,5 @@
 ﻿using CarRentingSystem.Infrastructure.Data.GlobalConstants;
+using CarRentingSystem.Infrastructure.Data.Models.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,7 +19,13 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         public string Model { get; set; } = null!;
 
         [Required]
-        public int Year { get; set; }
+        public int MakeYear { get; set; }
+
+        [Required]
+        public Gearbox Gearbox { get; set; }
+
+        [Required]
+        public Fuel FuelType { get; set; }
 
         [Required]
         [StringLength(DataConstants.Car.CarDescriptionMaxValue)]

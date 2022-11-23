@@ -98,16 +98,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0235b028-495e-4b7a-821a-a2aab82a4460",
+                            ConcurrencyStamp = "bbdaa6b6-1303-46bd-918d-857ae6bc8952",
                             Email = "dealer@mail.com",
                             EmailConfirmed = false,
                             FullName = "Dealer",
                             LockoutEnabled = false,
                             NormalizedEmail = "dealer@mail.com",
                             NormalizedUserName = "dealer@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEArRN4wHjgBWwJp73x6WEFmSHSrjh5R8HzSWbQ1rFiZS0ag4yTQ4tXSufFWwVfO+Fw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEQemKbvchAu2kJe8YNLssCcmbxyUi6KQ2AK559Tupz87h0gW9Z0txsWEs8Zk7yUyA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "710e6793-55d3-4c7b-a908-ceced274d684",
+                            SecurityStamp = "8644fd4e-0291-4952-89b4-2d79acaab734",
                             TwoFactorEnabled = false,
                             UserName = "dealer@mail.com"
                         },
@@ -115,16 +115,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "793aadec-0e3b-4cfa-91b1-4846318f28c2",
+                            ConcurrencyStamp = "a2314990-661a-44c2-9fe3-04a05eece7c4",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FullName = "Guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO/+QJzow4yVTvGOjueu09XLvzkaRnEhWrtZqW8kH1sE6q1T/uY4jCguqal05V6wPQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPHu3IxtswIRgXYWLhF9J3wFeVoWQdMnE+xfrdYoBJywIXZrlzip+KcDmOSRXZ71hg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b3901805-4a9b-4ea4-9f6d-eb5d6fe1ab4f",
+                            SecurityStamp = "079d390d-cfdc-45fb-9611-ff86317105e3",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -154,10 +154,19 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("FuelType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gearbox")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("MakeYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -169,9 +178,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
 
                     b.Property<string>("RenterId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -189,11 +195,13 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             CategoryId = 3,
                             DealerId = 2,
                             Description = "Very good car for youngth renter or for family.",
+                            FuelType = 1,
+                            Gearbox = 0,
                             ImageUrl = "https://imgd.aeplcdn.com/0x0/ec/69/55/13232/img/l/BMW-5-Series-Front-view-27016.jpg?q=75",
+                            MakeYear = 2014,
                             Model = "530",
                             PricePerDay = 50,
-                            RenterId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                            Year = 2014
+                            RenterId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"
                         },
                         new
                         {
@@ -202,10 +210,12 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             CategoryId = 3,
                             DealerId = 2,
                             Description = "Very good car for family.",
+                            FuelType = 1,
+                            Gearbox = 1,
                             ImageUrl = "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/800x450/format/jpg/quality/85/http://www.blogcdn.com/www.autoblog.com/media/2011/06/2012-mercedes-benz-c-class-coupe.jpg",
+                            MakeYear = 2012,
                             Model = "C 220",
-                            PricePerDay = 35,
-                            Year = 2012
+                            PricePerDay = 35
                         },
                         new
                         {
@@ -214,10 +224,12 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             CategoryId = 3,
                             DealerId = 1,
                             Description = "Very luxury car for rich people.",
+                            FuelType = 0,
+                            Gearbox = 1,
                             ImageUrl = "https://paultan.org/image/2020/09/2021-W223-Mercedes-Benz-S-Class-White-9-1200x628.jpg",
+                            MakeYear = 2020,
                             Model = "S 500",
-                            PricePerDay = 100,
-                            Year = 2020
+                            PricePerDay = 100
                         },
                         new
                         {
@@ -226,10 +238,12 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             CategoryId = 1,
                             DealerId = 1,
                             Description = "Very good for family car.",
+                            FuelType = 0,
+                            Gearbox = 0,
                             ImageUrl = "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2018/01/2018-10Best-Trucks-SUVs-Mazda-CX-5-2p5L-lp.jpg?resize=480:*",
+                            MakeYear = 2019,
                             Model = "CX-5",
-                            PricePerDay = 80,
-                            Year = 2019
+                            PricePerDay = 80
                         },
                         new
                         {
@@ -238,10 +252,12 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             CategoryId = 5,
                             DealerId = 4,
                             Description = "Very fast car for people who want to make some new advantures.",
+                            FuelType = 0,
+                            Gearbox = 1,
                             ImageUrl = "https://www.auto-data.net/images/f15/file6121570.jpg",
+                            MakeYear = 2017,
                             Model = "911 Turbo S",
-                            PricePerDay = 110,
-                            Year = 2017
+                            PricePerDay = 110
                         },
                         new
                         {
@@ -250,10 +266,12 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             CategoryId = 6,
                             DealerId = 3,
                             Description = "Very good car for youngth people and people who want to make some new advantures.",
+                            FuelType = 1,
+                            Gearbox = 0,
                             ImageUrl = "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg",
+                            MakeYear = 2015,
                             Model = "M3",
-                            PricePerDay = 75,
-                            Year = 2015
+                            PricePerDay = 75
                         });
                 });
 
@@ -529,9 +547,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = 1,
                             CarId = 1,
-                            EndDate = new DateTime(2022, 11, 26, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3512),
+                            EndDate = new DateTime(2022, 11, 27, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9500),
                             ReservationPeriodId = 2,
-                            StartDate = new DateTime(2022, 11, 21, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3478)
+                            StartDate = new DateTime(2022, 11, 22, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9462)
                         });
                 });
 

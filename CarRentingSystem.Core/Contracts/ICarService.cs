@@ -4,8 +4,12 @@ namespace CarRentingSystem.Core.Contracts
 {
     public interface ICarService
     {
-        Task<IEnumerable<CarHomeModel>> GetAllCarsAsync();
+        Task<IEnumerable<CarModel>> GetAllCarsAsync();
 
+        Task<CarsQueryServiceModel> All(string category = null, string searchItem = null,
+            CarSorting sorting = CarSorting.Newest, int currentPage = 1,
+            int housePerPage = 1);
 
+        Task<IEnumerable<string>> AllCategoriesNames();
     }
 }

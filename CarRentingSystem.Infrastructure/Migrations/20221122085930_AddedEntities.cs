@@ -110,7 +110,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
+                    MakeYear = table.Column<int>(type: "int", nullable: false),
+                    Gearbox = table.Column<int>(type: "int", nullable: false),
+                    FuelType = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     PricePerDay = table.Column<int>(type: "int", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
@@ -196,8 +198,8 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "793aadec-0e3b-4cfa-91b1-4846318f28c2", "guest@mail.com", false, "Guest", false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEO/+QJzow4yVTvGOjueu09XLvzkaRnEhWrtZqW8kH1sE6q1T/uY4jCguqal05V6wPQ==", null, false, "b3901805-4a9b-4ea4-9f6d-eb5d6fe1ab4f", false, "guest@mail.com" },
-                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "0235b028-495e-4b7a-821a-a2aab82a4460", "dealer@mail.com", false, "Dealer", false, null, "dealer@mail.com", "dealer@mail.com", "AQAAAAEAACcQAAAAEArRN4wHjgBWwJp73x6WEFmSHSrjh5R8HzSWbQ1rFiZS0ag4yTQ4tXSufFWwVfO+Fw==", null, false, "710e6793-55d3-4c7b-a908-ceced274d684", false, "dealer@mail.com" }
+                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "a2314990-661a-44c2-9fe3-04a05eece7c4", "guest@mail.com", false, "Guest", false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEPHu3IxtswIRgXYWLhF9J3wFeVoWQdMnE+xfrdYoBJywIXZrlzip+KcDmOSRXZ71hg==", null, false, "079d390d-cfdc-45fb-9611-ff86317105e3", false, "guest@mail.com" },
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "bbdaa6b6-1303-46bd-918d-857ae6bc8952", "dealer@mail.com", false, "Dealer", false, null, "dealer@mail.com", "dealer@mail.com", "AQAAAAEAACcQAAAAEEQemKbvchAu2kJe8YNLssCcmbxyUi6KQ2AK559Tupz87h0gW9Z0txsWEs8Zk7yUyA==", null, false, "8644fd4e-0291-4952-89b4-2d79acaab734", false, "dealer@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -251,15 +253,15 @@ namespace CarRentingSystem.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Cars",
-                columns: new[] { "Id", "Brand", "CategoryId", "DealerId", "Description", "ImageUrl", "Model", "PricePerDay", "RenterId", "Year" },
+                columns: new[] { "Id", "Brand", "CategoryId", "DealerId", "Description", "FuelType", "Gearbox", "ImageUrl", "MakeYear", "Model", "PricePerDay", "RenterId" },
                 values: new object[,]
                 {
-                    { 1, "BMW", 3, 2, "Very good car for youngth renter or for family.", "https://imgd.aeplcdn.com/0x0/ec/69/55/13232/img/l/BMW-5-Series-Front-view-27016.jpg?q=75", "530", 50, "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 2014 },
-                    { 2, "Mercedes", 3, 2, "Very good car for family.", "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/800x450/format/jpg/quality/85/http://www.blogcdn.com/www.autoblog.com/media/2011/06/2012-mercedes-benz-c-class-coupe.jpg", "C 220", 35, null, 2012 },
-                    { 3, "Mercedes", 3, 1, "Very luxury car for rich people.", "https://paultan.org/image/2020/09/2021-W223-Mercedes-Benz-S-Class-White-9-1200x628.jpg", "S 500", 100, null, 2020 },
-                    { 4, "Mazda", 1, 1, "Very good for family car.", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2018/01/2018-10Best-Trucks-SUVs-Mazda-CX-5-2p5L-lp.jpg?resize=480:*", "CX-5", 80, null, 2019 },
-                    { 5, "Porsche", 5, 4, "Very fast car for people who want to make some new advantures.", "https://www.auto-data.net/images/f15/file6121570.jpg", "911 Turbo S", 110, null, 2017 },
-                    { 6, "BMW", 6, 3, "Very good car for youngth people and people who want to make some new advantures.", "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg", "M3", 75, null, 2015 }
+                    { 1, "BMW", 3, 2, "Very good car for youngth renter or for family.", 1, 0, "https://imgd.aeplcdn.com/0x0/ec/69/55/13232/img/l/BMW-5-Series-Front-view-27016.jpg?q=75", 2014, "530", 50, "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e" },
+                    { 2, "Mercedes", 3, 2, "Very good car for family.", 1, 1, "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/800x450/format/jpg/quality/85/http://www.blogcdn.com/www.autoblog.com/media/2011/06/2012-mercedes-benz-c-class-coupe.jpg", 2012, "C 220", 35, null },
+                    { 3, "Mercedes", 3, 1, "Very luxury car for rich people.", 0, 1, "https://paultan.org/image/2020/09/2021-W223-Mercedes-Benz-S-Class-White-9-1200x628.jpg", 2020, "S 500", 100, null },
+                    { 4, "Mazda", 1, 1, "Very good for family car.", 0, 0, "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2018/01/2018-10Best-Trucks-SUVs-Mazda-CX-5-2p5L-lp.jpg?resize=480:*", 2019, "CX-5", 80, null },
+                    { 5, "Porsche", 5, 4, "Very fast car for people who want to make some new advantures.", 0, 1, "https://www.auto-data.net/images/f15/file6121570.jpg", 2017, "911 Turbo S", 110, null },
+                    { 6, "BMW", 6, 3, "Very good car for youngth people and people who want to make some new advantures.", 1, 0, "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg", 2015, "M3", 75, null }
                 });
 
             migrationBuilder.InsertData(
@@ -277,7 +279,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Reservations",
                 columns: new[] { "Id", "CarId", "EndDate", "ReservationPeriodId", "StartDate" },
-                values: new object[] { 1, 1, new DateTime(2022, 11, 26, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3512), 2, new DateTime(2022, 11, 21, 20, 24, 27, 506, DateTimeKind.Local).AddTicks(3478) });
+                values: new object[] { 1, 1, new DateTime(2022, 11, 27, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9500), 2, new DateTime(2022, 11, 22, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9462) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CategoryId",
