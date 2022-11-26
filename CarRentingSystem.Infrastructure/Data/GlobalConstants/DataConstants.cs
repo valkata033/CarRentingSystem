@@ -4,10 +4,14 @@
     {
         public static class User
         {
-            public const int UserEGNMinValue = 10;
-            public const int UserEGNMaxValue = 10;
-            public const int UserFullNameMinValue = 4;
-            public const int UserFullNameMaxValue = 60;
+            public const int UserEmailAddressMinValue = 8;
+            public const int UserEmailAddressMaxValue = 30;
+            public const int UserFullNameMinValue = 6;
+            public const int UserFullNameMaxValue = 50;
+            public const int UserNameMinValue = 2;
+            public const int UserNameMaxValue = 40;
+            public const int UserPasswordMinValue = 6;
+            public const int UserPasswordMaxValue = 40;
         }
 
         public static class Car

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CarRentingSystem.Infrastructure.Data.GlobalConstants;
 
 namespace CarRentingSystem.Core.Models.User
 {
@@ -6,9 +7,10 @@ namespace CarRentingSystem.Core.Models.User
     {
         [Required]
         [EmailAddress]
-        [StringLength(60, MinimumLength = 10)]
+        [StringLength(DataConstants.User.UserEmailAddressMaxValue, MinimumLength = DataConstants.User.UserEmailAddressMinValue)]
         public string Email { get; set; } = null!;
 
+        [StringLength(DataConstants.User.UserPasswordMaxValue, MinimumLength = DataConstants.User.UserPasswordMinValue)]
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;

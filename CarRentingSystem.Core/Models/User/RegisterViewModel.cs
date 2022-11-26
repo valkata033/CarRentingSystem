@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CarRentingSystem.Infrastructure.Data.GlobalConstants;
 
 namespace CarRentingSystem.Core.Models.User
 {
@@ -6,25 +7,26 @@ namespace CarRentingSystem.Core.Models.User
     {
 
         [Required]
-        [StringLength(20, MinimumLength = 5)]
+        [StringLength(DataConstants.User.UserNameMaxValue, MinimumLength = DataConstants.User.UserNameMinValue)]
         public string UserName { get; set; } = null!;
 
         [Required]
-        [StringLength(50, MinimumLength = 5)]
+        [StringLength(DataConstants.User.UserFullNameMaxValue, MinimumLength = DataConstants.User.UserFullNameMinValue)]
         public string FullName { get; set; } = null!;
 
         [Required]
         [EmailAddress]
-        [StringLength(60, MinimumLength = 10)]
+        [StringLength(DataConstants.User.UserEmailAddressMaxValue, MinimumLength = DataConstants.User.UserEmailAddressMinValue)]
         public string Email { get; set; } = null!;
 
         [Required]
-        [StringLength(20, MinimumLength = 5)]
+        [StringLength(DataConstants.User.UserPasswordMaxValue, MinimumLength = DataConstants.User.UserPasswordMinValue)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
 
         [Required]
         [Compare(nameof(Password))]
+        [StringLength(DataConstants.User.UserPasswordMaxValue, MinimumLength = DataConstants.User.UserPasswordMinValue)]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; } = null!;
     }

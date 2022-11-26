@@ -10,6 +10,7 @@ namespace CarRentingSystem.Extensions
         {
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IDealerService, DealerService>();
 
             return services;
         }
