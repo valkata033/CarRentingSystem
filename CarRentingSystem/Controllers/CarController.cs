@@ -10,10 +10,12 @@ namespace CarRentingSystem.Controllers
     public class CarController : Controller
     {
         private readonly ICarService cars;
+        private readonly IDealerService dealers;
 
-        public CarController(ICarService _cars)
+        public CarController(ICarService _cars, IDealerService _dealers)
         {
             cars = _cars;
+            dealers = _dealers;
         }
 
         [AllowAnonymous]
@@ -42,9 +44,15 @@ namespace CarRentingSystem.Controllers
 
             string userId = User.Id();
 
-            if (true)
+            if (await dealers.ExistsById(userId))
             {
+                var currDealerId = await dealers.GetDealerId(userId);
 
+                myCars = await cars.AllCarsByDealerId(currDealerId);
+            }
+            else
+            {
+                myCars = await cars.AllCarsByUserId(userId);
             }
 
             return View(myCars);

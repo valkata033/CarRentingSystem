@@ -11,5 +11,9 @@ namespace CarRentingSystem.Core.Contracts
             int housePerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNames();
+
+        Task<IEnumerable<CarModel>> AllCarsByUserId(string userId);
+
+        Task<IEnumerable<CarModel>> AllCarsByDealerId(int dealerId);
     }
 }

@@ -66,6 +66,48 @@ namespace CarRentingSystem.Core.Services
 
         }
 
+        public async Task<IEnumerable<CarModel>> AllCarsByDealerId(int dealerId)
+        {
+            return await repo
+               .All<Car>()
+               .Where(x => x.DealerId == dealerId)
+               .Select(x => new CarModel()
+               {
+                   Id = x.Id,
+                   Brand = x.Brand,
+                   Model = x.Model,
+                   MakeYear = x.MakeYear,
+                   PricePerDay = x.PricePerDay,
+                   Description = x.Description,
+                   Gearbox = x.Gearbox,
+                   FuelType = x.FuelType,
+                   ImageUrl = x.ImageUrl,
+                   IsRented = x.RenterId != null
+               })
+               .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CarModel>> AllCarsByUserId(string userId)
+        {
+            return await repo
+                .All<Car>()
+                .Where(x => x.RenterId == userId)
+                .Select(x => new CarModel()
+                {
+                    Id = x.Id,
+                    Brand = x.Brand,
+                    Model = x.Model,
+                    MakeYear = x.MakeYear,
+                    PricePerDay = x.PricePerDay,
+                    Description = x.Description,
+                    Gearbox = x.Gearbox,
+                    FuelType = x.FuelType,
+                    ImageUrl = x.ImageUrl,
+                    IsRented = x.RenterId != null
+                })
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<string>> AllCategoriesNames()
         {
             return await repo.AllReadonly<Category>()

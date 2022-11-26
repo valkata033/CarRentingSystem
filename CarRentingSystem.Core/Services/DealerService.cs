@@ -35,7 +35,8 @@ namespace CarRentingSystem.Core.Services
 
         public async Task<int> GetDealerId(string userId)
         {
-            return (await repo.GetByIdAsync<Dealer>(userId)).Id;
+            return (await repo.AllReadonly<Dealer>()
+                .FirstOrDefaultAsync(x => x.UserId == userId))?.Id ?? 0;
         }
 
         public async Task<bool> HasDealerWithPhoneNumber(string phoneNumber)

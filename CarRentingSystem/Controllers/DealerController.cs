@@ -39,7 +39,9 @@ namespace CarRentingSystem.Controllers
 
             if (await dealers.ExistsById(userId))
             {
-                return BadRequest();
+                TempData[MessageConstants.ErrorMessage] = "You are already dealer!";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
             if (await dealers.HasDealerWithPhoneNumber(model.PhoneNumber))
