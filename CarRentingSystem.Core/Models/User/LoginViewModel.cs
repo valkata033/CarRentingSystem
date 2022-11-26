@@ -5,7 +5,9 @@ namespace CarRentingSystem.Core.Models.User
     public class LoginViewModel
     {
         [Required]
-        public string UserName { get; set; } = null!;
+        [EmailAddress]
+        [StringLength(60, MinimumLength = 10)]
+        public string Email { get; set; } = null!;
 
         [Required]
         [DataType(DataType.Password)]

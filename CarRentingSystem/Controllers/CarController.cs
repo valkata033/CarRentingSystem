@@ -1,5 +1,6 @@
 ﻿using CarRentingSystem.Core.Contracts;
 using CarRentingSystem.Core.Models.Car;
+using CarRentingSystem.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,21 @@ namespace CarRentingSystem.Controllers
             model.Categories = carsCategories;
 
             return View(model);
+        
+        }
+
+        public async Task<IActionResult> Mine()
+        {
+            IEnumerable<CarModel> myCars = null;
+
+            string userId = User.Id();
+
+            if (true)
+            {
+
+            }
+
+            return View(myCars);
         }
     }
 }

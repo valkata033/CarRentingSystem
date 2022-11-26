@@ -43,6 +43,19 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
             user.PasswordHash = hasher.HashPassword(user, "guest123");
             users.Add(user);
 
+            user = new ApplicationUser()
+            {
+                Id = "4078b0fd-3914-461c-8c6b-06bda682647d",
+                UserName = "dealer123",
+                FullName = "Luxury Dealer",
+                Email = "LuxuryDealer@abv.bg",
+                NormalizedEmail = "LuxuryDealer@abv.bg",
+                NormalizedUserName = "dealer123"
+            };
+
+            user.PasswordHash = hasher.HashPassword(user, "Dealer123");
+            users.Add(user);
+
             return users;
         }
     }

@@ -98,16 +98,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bbdaa6b6-1303-46bd-918d-857ae6bc8952",
+                            ConcurrencyStamp = "b7d7a366-d18f-4fc2-95f9-d568154a081d",
                             Email = "dealer@mail.com",
                             EmailConfirmed = false,
                             FullName = "Dealer",
                             LockoutEnabled = false,
                             NormalizedEmail = "dealer@mail.com",
                             NormalizedUserName = "dealer@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEQemKbvchAu2kJe8YNLssCcmbxyUi6KQ2AK559Tupz87h0gW9Z0txsWEs8Zk7yUyA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELqiSm7AoO+V4Bkn6aa2Gtx9zkYYDVbXupIu24VSFsZGvCUZ3/BBKi+fhs+bkxvXNA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8644fd4e-0291-4952-89b4-2d79acaab734",
+                            SecurityStamp = "95c698da-9429-4ed2-b7d5-154312628421",
                             TwoFactorEnabled = false,
                             UserName = "dealer@mail.com"
                         },
@@ -115,18 +115,35 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a2314990-661a-44c2-9fe3-04a05eece7c4",
+                            ConcurrencyStamp = "3246e941-5b1a-4518-8e91-db179b779286",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FullName = "Guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPHu3IxtswIRgXYWLhF9J3wFeVoWQdMnE+xfrdYoBJywIXZrlzip+KcDmOSRXZ71hg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECmsFnb2V/HK0BMJ+Qxh/PHPQfIyBARifj1Is16sb5fxenyWz0j6pbL3/7eIXycxUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "079d390d-cfdc-45fb-9611-ff86317105e3",
+                            SecurityStamp = "f375dc52-1fee-4b51-864a-4d1eab80af2e",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
+                        },
+                        new
+                        {
+                            Id = "4078b0fd-3914-461c-8c6b-06bda682647d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "71533829-86e6-451c-8d78-eb0b3f9c57fa",
+                            Email = "LuxuryDealer@abv.bg",
+                            EmailConfirmed = false,
+                            FullName = "Luxury Dealer",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "LuxuryDealer@abv.bg",
+                            NormalizedUserName = "dealer123",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGaBIIfryHm7iL7P1XfLx5r4VeLBQUtK3iUYX4XcYI/h4SLMwBq8tgO7sANYI79imw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e00065c9-0da7-47ce-8f5b-3a9442e72174",
+                            TwoFactorEnabled = false,
+                            UserName = "dealer123"
                         });
                 });
 
@@ -250,7 +267,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Id = 5,
                             Brand = "Porsche",
                             CategoryId = 5,
-                            DealerId = 4,
+                            DealerId = 1,
                             Description = "Very fast car for people who want to make some new advantures.",
                             FuelType = 0,
                             Gearbox = 1,
@@ -264,7 +281,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Id = 6,
                             Brand = "BMW",
                             CategoryId = 6,
-                            DealerId = 3,
+                            DealerId = 2,
                             Description = "Very good car for youngth people and people who want to make some new advantures.",
                             FuelType = 1,
                             Gearbox = 0,
@@ -414,27 +431,13 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             Id = 1,
                             Name = "Luxury Cars",
                             PhoneNumber = "+359884588735",
-                            UserId = "dea12856-c198-4129-b3f3-b893d8395082"
+                            UserId = "4078b0fd-3914-461c-8c6b-06bda682647d"
                         },
                         new
                         {
                             Id = 2,
                             Name = "Professional Rentals",
                             PhoneNumber = "+359887329454",
-                            UserId = "dea12856-c198-4129-b3f3-b893d8395082"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Rental Central",
-                            PhoneNumber = "+359885571323",
-                            UserId = "dea12856-c198-4129-b3f3-b893d8395082"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Deluxe Car Rentalss",
-                            PhoneNumber = "+359889324572",
                             UserId = "dea12856-c198-4129-b3f3-b893d8395082"
                         });
                 });
@@ -487,30 +490,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             CityId = 2,
                             DealerId = 2,
                             Name = "Plovdiv Dealership"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Adderss = "Burgas Center",
-                            CityId = 3,
-                            DealerId = 3,
-                            Name = "Burgas Dealership"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Adderss = "Vidin Center",
-                            CityId = 4,
-                            DealerId = 4,
-                            Name = "Vidin Dealership"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Adderss = "Varna Center",
-                            CityId = 5,
-                            DealerId = 3,
-                            Name = "Varna Dealership"
                         });
                 });
 
@@ -547,9 +526,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = 1,
                             CarId = 1,
-                            EndDate = new DateTime(2022, 11, 27, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9500),
+                            EndDate = new DateTime(2022, 11, 29, 20, 5, 27, 218, DateTimeKind.Local).AddTicks(1111),
                             ReservationPeriodId = 2,
-                            StartDate = new DateTime(2022, 11, 22, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9462)
+                            StartDate = new DateTime(2022, 11, 24, 20, 5, 27, 218, DateTimeKind.Local).AddTicks(1074)
                         });
                 });
 

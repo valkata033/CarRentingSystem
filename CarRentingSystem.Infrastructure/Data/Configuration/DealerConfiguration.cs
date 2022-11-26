@@ -20,7 +20,7 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     Id = 1,
                     Name = "Luxury Cars",
                     PhoneNumber = "+359884588735",
-                    UserId = "dea12856-c198-4129-b3f3-b893d8395082"
+                    UserId = "4078b0fd-3914-461c-8c6b-06bda682647d"
                 },
                 new Dealer()
                 {
@@ -28,7 +28,8 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     Name = "Professional Rentals",
                     PhoneNumber = "+359887329454",
                     UserId = "dea12856-c198-4129-b3f3-b893d8395082"
-                },
+                }
+                /*
                 new Dealer()
                 {
                     Id = 3,
@@ -43,6 +44,7 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     PhoneNumber = "+359889324572",
                     UserId = "dea12856-c198-4129-b3f3-b893d8395082"
                 }
+                */
             };
         }
     }

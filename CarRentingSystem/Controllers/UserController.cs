@@ -46,6 +46,7 @@ namespace CarRentingSystem.Controllers
             var user = new ApplicationUser()
             {
                 UserName = model.UserName,
+                FullName = model.FullName,
                 Email = model.Email
             };
 
@@ -58,7 +59,7 @@ namespace CarRentingSystem.Controllers
 
             foreach (var item in result.Errors)
             {
-                ModelState.AddModelError("Error", item.Description);
+                ModelState.AddModelError("", item.Description);
             }
 
             return View(model);
@@ -87,7 +88,7 @@ namespace CarRentingSystem.Controllers
                 return View(model);
             }
 
-            var user = await userManager.FindByNameAsync(model.UserName);
+            var user = await userManager.FindByEmailAsync(model.Email);
 
             if (user != null)
             {
@@ -99,7 +100,7 @@ namespace CarRentingSystem.Controllers
                 }
             }
 
-            ModelState.AddModelError("Error", "Invalid login!");
+            ModelState.AddModelError("", "Invalid login!");
 
             return View(model);
         }

@@ -30,7 +30,8 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     Adderss = "Plovdiv Center",
                     CityId = 2,
                     DealerId = 2,
-                },
+                }
+                /*
                 new Dealership()
                 {
                     Id = 3,
@@ -55,7 +56,7 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     CityId = 5,
                     DealerId = 3,
                 },
-
+                */
             };
         }
     }

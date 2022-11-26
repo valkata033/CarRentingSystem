@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarRentingSystem.Infrastructure.Migrations
 {
-    public partial class AddedEntities : Migration
+    public partial class EntitiesAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -198,8 +198,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "a2314990-661a-44c2-9fe3-04a05eece7c4", "guest@mail.com", false, "Guest", false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEPHu3IxtswIRgXYWLhF9J3wFeVoWQdMnE+xfrdYoBJywIXZrlzip+KcDmOSRXZ71hg==", null, false, "079d390d-cfdc-45fb-9611-ff86317105e3", false, "guest@mail.com" },
-                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "bbdaa6b6-1303-46bd-918d-857ae6bc8952", "dealer@mail.com", false, "Dealer", false, null, "dealer@mail.com", "dealer@mail.com", "AQAAAAEAACcQAAAAEEQemKbvchAu2kJe8YNLssCcmbxyUi6KQ2AK559Tupz87h0gW9Z0txsWEs8Zk7yUyA==", null, false, "8644fd4e-0291-4952-89b4-2d79acaab734", false, "dealer@mail.com" }
+                    { "4078b0fd-3914-461c-8c6b-06bda682647d", 0, "71533829-86e6-451c-8d78-eb0b3f9c57fa", "LuxuryDealer@abv.bg", false, "Luxury Dealer", false, null, "LuxuryDealer@abv.bg", "dealer123", "AQAAAAEAACcQAAAAEGaBIIfryHm7iL7P1XfLx5r4VeLBQUtK3iUYX4XcYI/h4SLMwBq8tgO7sANYI79imw==", null, false, "e00065c9-0da7-47ce-8f5b-3a9442e72174", false, "dealer123" },
+                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "3246e941-5b1a-4518-8e91-db179b779286", "guest@mail.com", false, "Guest", false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAECmsFnb2V/HK0BMJ+Qxh/PHPQfIyBARifj1Is16sb5fxenyWz0j6pbL3/7eIXycxUw==", null, false, "f375dc52-1fee-4b51-864a-4d1eab80af2e", false, "guest@mail.com" },
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "b7d7a366-d18f-4fc2-95f9-d568154a081d", "dealer@mail.com", false, "Dealer", false, null, "dealer@mail.com", "dealer@mail.com", "AQAAAAEAACcQAAAAELqiSm7AoO+V4Bkn6aa2Gtx9zkYYDVbXupIu24VSFsZGvCUZ3/BBKi+fhs+bkxvXNA==", null, false, "95c698da-9429-4ed2-b7d5-154312628421", false, "dealer@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -243,13 +244,12 @@ namespace CarRentingSystem.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Dealers",
                 columns: new[] { "Id", "Name", "PhoneNumber", "UserId" },
-                values: new object[,]
-                {
-                    { 1, "Luxury Cars", "+359884588735", "dea12856-c198-4129-b3f3-b893d8395082" },
-                    { 2, "Professional Rentals", "+359887329454", "dea12856-c198-4129-b3f3-b893d8395082" },
-                    { 3, "Rental Central", "+359885571323", "dea12856-c198-4129-b3f3-b893d8395082" },
-                    { 4, "Deluxe Car Rentalss", "+359889324572", "dea12856-c198-4129-b3f3-b893d8395082" }
-                });
+                values: new object[] { 1, "Luxury Cars", "+359884588735", "4078b0fd-3914-461c-8c6b-06bda682647d" });
+
+            migrationBuilder.InsertData(
+                table: "Dealers",
+                columns: new[] { "Id", "Name", "PhoneNumber", "UserId" },
+                values: new object[] { 2, "Professional Rentals", "+359887329454", "dea12856-c198-4129-b3f3-b893d8395082" });
 
             migrationBuilder.InsertData(
                 table: "Cars",
@@ -260,8 +260,8 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     { 2, "Mercedes", 3, 2, "Very good car for family.", 1, 1, "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/800x450/format/jpg/quality/85/http://www.blogcdn.com/www.autoblog.com/media/2011/06/2012-mercedes-benz-c-class-coupe.jpg", 2012, "C 220", 35, null },
                     { 3, "Mercedes", 3, 1, "Very luxury car for rich people.", 0, 1, "https://paultan.org/image/2020/09/2021-W223-Mercedes-Benz-S-Class-White-9-1200x628.jpg", 2020, "S 500", 100, null },
                     { 4, "Mazda", 1, 1, "Very good for family car.", 0, 0, "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2018/01/2018-10Best-Trucks-SUVs-Mazda-CX-5-2p5L-lp.jpg?resize=480:*", 2019, "CX-5", 80, null },
-                    { 5, "Porsche", 5, 4, "Very fast car for people who want to make some new advantures.", 0, 1, "https://www.auto-data.net/images/f15/file6121570.jpg", 2017, "911 Turbo S", 110, null },
-                    { 6, "BMW", 6, 3, "Very good car for youngth people and people who want to make some new advantures.", 1, 0, "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg", 2015, "M3", 75, null }
+                    { 5, "Porsche", 5, 1, "Very fast car for people who want to make some new advantures.", 0, 1, "https://www.auto-data.net/images/f15/file6121570.jpg", 2017, "911 Turbo S", 110, null },
+                    { 6, "BMW", 6, 2, "Very good car for youngth people and people who want to make some new advantures.", 1, 0, "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg", 2015, "M3", 75, null }
                 });
 
             migrationBuilder.InsertData(
@@ -270,16 +270,13 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 values: new object[,]
                 {
                     { 1, "Sofia Airport", 1, 1, "Sofia Dealership" },
-                    { 2, "Plovdiv Center", 2, 2, "Plovdiv Dealership" },
-                    { 3, "Burgas Center", 3, 3, "Burgas Dealership" },
-                    { 4, "Vidin Center", 4, 4, "Vidin Dealership" },
-                    { 5, "Varna Center", 5, 3, "Varna Dealership" }
+                    { 2, "Plovdiv Center", 2, 2, "Plovdiv Dealership" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Reservations",
                 columns: new[] { "Id", "CarId", "EndDate", "ReservationPeriodId", "StartDate" },
-                values: new object[] { 1, 1, new DateTime(2022, 11, 27, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9500), 2, new DateTime(2022, 11, 22, 10, 59, 30, 508, DateTimeKind.Local).AddTicks(9462) });
+                values: new object[] { 1, 1, new DateTime(2022, 11, 29, 20, 5, 27, 218, DateTimeKind.Local).AddTicks(1111), 2, new DateTime(2022, 11, 24, 20, 5, 27, 218, DateTimeKind.Local).AddTicks(1074) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CategoryId",
@@ -344,6 +341,11 @@ namespace CarRentingSystem.Infrastructure.Migrations
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: "4078b0fd-3914-461c-8c6b-06bda682647d");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",

@@ -85,7 +85,7 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     PricePerDay = 110,
                     ImageUrl = "https://www.auto-data.net/images/f15/file6121570.jpg",
                     CategoryId = 5,
-                    DealerId = 4,
+                    DealerId = 1,
                 },
                 new Car()
                 {
@@ -99,7 +99,7 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     PricePerDay = 75,
                     ImageUrl = "http://hauteliving.com/wp-content/uploads/2014/07/M4_Coupe_127.jpg",
                     CategoryId = 6,
-                    DealerId = 3,
+                    DealerId = 2,
                 }
             };
         }

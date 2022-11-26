@@ -4,9 +4,14 @@ namespace CarRentingSystem.Core.Models.User
 {
     public class RegisterViewModel
     {
+
         [Required]
         [StringLength(20, MinimumLength = 5)]
         public string UserName { get; set; } = null!;
+
+        [Required]
+        [StringLength(50, MinimumLength = 5)]
+        public string FullName { get; set; } = null!;
 
         [Required]
         [EmailAddress]
