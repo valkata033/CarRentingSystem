@@ -1,6 +1,6 @@
 ﻿using CarRentingSystem.Core.Contracts;
+using CarRentingSystem.Infrastructure.Data.Common;
 using CarRentingSystem.Infrastructure.Data.Models;
-using HouseRentingSystem.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRentingSystem.Core.Services

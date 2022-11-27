@@ -15,5 +15,9 @@ namespace CarRentingSystem.Core.Contracts
         Task<IEnumerable<CarModel>> AllCarsByUserId(string userId);
 
         Task<IEnumerable<CarModel>> AllCarsByDealerId(int dealerId);
+
+        Task<bool> Exists(int carId);
+
+        Task<CarDetailsModel> GetCarsDetailsById(int carId);
     }
 }

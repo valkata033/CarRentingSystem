@@ -11,13 +11,8 @@ namespace CarRentingSystem.Core.Models.Car
 
         public string Model { get; set; } = null!;
 
-        [Display(Name = "Make Year")]
-        public int MakeYear { get; set; }
-
         [Display(Name = "Price Per Day")]
         public int PricePerDay { get; set; }
-
-        public string Description { get; set; } = null!;
 
         public Gearbox Gearbox { get; set; }
 

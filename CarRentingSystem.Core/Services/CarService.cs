@@ -1,8 +1,9 @@
 ﻿using CarRentingSystem.Core.Contracts;
 using CarRentingSystem.Core.Models.Car;
+using CarRentingSystem.Core.Models.Dealer;
 using CarRentingSystem.Infrastructure.Data.Models;
-using HouseRentingSystem.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using CarRentingSystem.Infrastructure.Data.Common;
 
 namespace CarRentingSystem.Core.Services
 {
@@ -76,9 +77,7 @@ namespace CarRentingSystem.Core.Services
                    Id = x.Id,
                    Brand = x.Brand,
                    Model = x.Model,
-                   MakeYear = x.MakeYear,
                    PricePerDay = x.PricePerDay,
-                   Description = x.Description,
                    Gearbox = x.Gearbox,
                    FuelType = x.FuelType,
                    ImageUrl = x.ImageUrl,
@@ -97,9 +96,7 @@ namespace CarRentingSystem.Core.Services
                     Id = x.Id,
                     Brand = x.Brand,
                     Model = x.Model,
-                    MakeYear = x.MakeYear,
                     PricePerDay = x.PricePerDay,
-                    Description = x.Description,
                     Gearbox = x.Gearbox,
                     FuelType = x.FuelType,
                     ImageUrl = x.ImageUrl,
@@ -116,6 +113,11 @@ namespace CarRentingSystem.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<bool> Exists(int carId)
+        {
+            return await repo.AllReadonly<Car>().AnyAsync(x => x.Id == carId);
+        }
+
         public async Task<IEnumerable<CarModel>> GetAllCarsAsync()
         {
             return await repo.AllReadonly<Car>()
@@ -127,6 +129,39 @@ namespace CarRentingSystem.Core.Services
                     ImageUrl = x.ImageUrl
                 })
                 .ToListAsync();
+        }
+
+        public async Task<CarDetailsModel> GetCarsDetailsById(int carId)
+        {
+            var car =  await repo.AllReadonly<Car>()
+                .Where(x => x.Id == carId)
+                .Select(x => new CarDetailsModel()
+                {
+                    Id = x.Id,
+                    Brand = x.Brand,
+                    Model = x.Model,
+                    MakeYear = x.MakeYear,
+                    PricePerDay = x.PricePerDay,
+                    Description = x.Description,
+                    ImageUrl = x.ImageUrl,
+                    FuelType = x.FuelType,
+                    Gearbox = x.Gearbox,
+                    Category = x.Category.Name,
+                    Dealer = new DealerServiceModel()
+                    {
+                        Name = x.Dealer.Name,
+                        PhoneNumber = x.Dealer.PhoneNumber,
+                        Email = x.Dealer.User.Email
+                    }
+                })
+                .FirstOrDefaultAsync();
+
+            if (car == null)
+            {
+                throw new ArgumentNullException("Invalid car id");
+            }
+
+            return car;
         }
     }
 }

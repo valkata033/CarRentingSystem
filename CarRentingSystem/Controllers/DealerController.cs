@@ -27,9 +27,7 @@ namespace CarRentingSystem.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            TempData[MessageConstants.SuccessMessage] = "You become dealer successfully!";
-
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return View();
         }
 
         [HttpPost]
@@ -56,6 +54,8 @@ namespace CarRentingSystem.Controllers
             }
 
             await dealers.Create(userId, model.PhoneNumber, model.Name);
+
+            TempData[MessageConstants.SuccessMessage] = "You become dealer successfully!";
 
             return RedirectToAction(nameof(CarController.All), "Car");
         }

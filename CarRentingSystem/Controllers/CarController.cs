@@ -1,6 +1,7 @@
 ﻿using CarRentingSystem.Core.Contracts;
 using CarRentingSystem.Core.Models.Car;
 using CarRentingSystem.Extensions;
+using CarRentingSystem.Infrastructure.Data.GlobalConstants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +57,20 @@ namespace CarRentingSystem.Controllers
             }
 
             return View(myCars);
+        }
+
+        public async Task<IActionResult> Details(int carId)
+        {
+            if ((await cars.Exists(carId)) == false)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Car with this id do not exist!";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var carModel = await cars.GetCarsDetailsById(carId);
+
+            return View(carModel);
         }
     }
 }

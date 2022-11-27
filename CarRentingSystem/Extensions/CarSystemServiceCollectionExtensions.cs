@@ -1,6 +1,6 @@
 ﻿using CarRentingSystem.Core.Contracts;
 using CarRentingSystem.Core.Services;
-using HouseRentingSystem.Infrastructure.Data.Common;
+using CarRentingSystem.Infrastructure.Data.Common;
 
 namespace CarRentingSystem.Extensions
 {

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace HouseRentingSystem.Infrastructure.Data.Common
+namespace CarRentingSystem.Infrastructure.Data.Common
 {
     /// <summary>
     /// Abstraction of repository access methods
