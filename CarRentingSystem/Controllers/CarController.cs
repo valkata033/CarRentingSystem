@@ -59,16 +59,16 @@ namespace CarRentingSystem.Controllers
             return View(myCars);
         }
 
-        public async Task<IActionResult> Details(int carId)
+        public async Task<IActionResult> Details(CarDetailsModel model)
         {
-            if ((await cars.Exists(carId)) == false)
+            if ((await cars.Exists(model.Id)) == false)
             {
                 TempData[MessageConstants.ErrorMessage] = "Car with this id do not exist!";
 
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            var carModel = await cars.GetCarsDetailsById(carId);
+            var carModel = await cars.GetCarsDetailsById(model.Id);
 
             return View(carModel);
         }
