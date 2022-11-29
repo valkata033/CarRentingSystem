@@ -3,6 +3,7 @@ using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 
 namespace CarRentingSystem.Controllers
 {
@@ -11,13 +12,16 @@ namespace CarRentingSystem.Controllers
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public UserController(
             SignInManager<ApplicationUser> _signInManager,
-            UserManager<ApplicationUser> _userManager)
+            UserManager<ApplicationUser> _userManager,
+            RoleManager<IdentityRole> _roleManager)
         {
             signInManager = _signInManager;
             userManager = _userManager;
+            roleManager = _roleManager;
         }
 
         [HttpGet]
@@ -96,7 +100,13 @@ namespace CarRentingSystem.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(CarController.All), "Car");
+                    if (await userManager.IsInRoleAsync(user, "Administrator"))
+                    {
+                        
+                        return RedirectToAction("Index", "Admin", new { Area = "Administrator" });
+                    }
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
