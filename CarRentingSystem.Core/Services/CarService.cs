@@ -4,6 +4,7 @@ using CarRentingSystem.Core.Models.Dealer;
 using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using CarRentingSystem.Infrastructure.Data.Common;
+using CarRentingSystem.Infrastructure.Data.Models.Enum;
 
 namespace CarRentingSystem.Core.Services
 {
@@ -105,12 +106,52 @@ namespace CarRentingSystem.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<CarCategoryServiceModel>> AllCategories()
+        {
+            return await repo.AllReadonly<Category>()
+                .OrderBy(x => x.Id)
+                .Select(x => new CarCategoryServiceModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                })
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<string>> AllCategoriesNames()
         {
             return await repo.AllReadonly<Category>()
                 .Select(x => x.Name)
                 .Distinct()
                 .ToListAsync();
+        }
+
+        public async Task<bool> CategoryExist(int categoryId)
+        {
+            return await repo.AllReadonly<Category>()
+                .AnyAsync(x => x.Id == categoryId);
+        }
+
+        public async Task<int> CreateCar(CarFormModel model, int dealerId)
+        {
+            var car = new Car()
+            {
+                Brand = model.Brand,
+                Model = model.Model,
+                MakeYear = model.MakeYear,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                Gearbox = model.Gearbox,
+                FuelType = model.FuelType,
+                PricePerDay = model.PricePerDay,
+                CategoryId = model.CategoryId,
+                DealerId = dealerId
+            };
+
+            await repo.AddAsync(car);
+            await repo.SaveChangesAsync();
+
+            return car.Id;
         }
 
         public async Task<bool> Exists(int carId)

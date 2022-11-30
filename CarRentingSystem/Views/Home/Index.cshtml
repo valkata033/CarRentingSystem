@@ -1,8 +1,7 @@
-﻿@using CarRentingSystem.Core.Models.Car
+﻿@model IEnumerable<CarModel>
 
-@model IEnumerable<CarModel>
 @{
-    ViewData["Title"] = "Rent best cars ever!";
+    ViewData["Title"] = "Car rental system";
     var cars = Model.ToList();
 }
 

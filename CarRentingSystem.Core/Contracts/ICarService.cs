@@ -12,11 +12,17 @@ namespace CarRentingSystem.Core.Contracts
 
         Task<IEnumerable<string>> AllCategoriesNames();
 
+        Task<bool> CategoryExist(int categoryId);
+
+        Task<IEnumerable<CarCategoryServiceModel>> AllCategories();
+
         Task<IEnumerable<CarModel>> AllCarsByUserId(string userId);
 
         Task<IEnumerable<CarModel>> AllCarsByDealerId(int dealerId);
 
         Task<bool> Exists(int carId);
+
+        Task<int> CreateCar(CarFormModel model, int dealerId);
 
         Task<CarDetailsModel> GetCarsDetailsById(int carId);
     }

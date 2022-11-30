@@ -72,5 +72,50 @@ namespace CarRentingSystem.Controllers
 
             return View(carModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            return View(new CarFormModel()
+            {
+                Categories = await cars.AllCategories()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(CarFormModel carModel)
+        {
+            if (User.IsInRole("Dealer") == false)
+            {
+                TempData[MessageConstants.ErrorMessage] = "You must be dealer to add cars!";
+                return RedirectToAction(nameof(DealerController.Become), "Dealer");
+            }
+
+            if ((await dealers.ExistsById(User.Id())) == false)
+            {
+                TempData[MessageConstants.ErrorMessage] = "You must be dealer to add cars!";
+                return RedirectToAction(nameof(DealerController.Become), "Dealer");
+            }
+
+            if ((await cars.CategoryExist(carModel.CategoryId)) == false)
+            {
+                ModelState.AddModelError(nameof(carModel.CategoryId), "Category does not exist!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                carModel.Categories = await cars.AllCategories();
+
+                TempData[MessageConstants.ErrorMessage] = "Invalid data!";
+
+                return View(carModel);
+            }
+
+            int dealerId = await dealers.GetDealerId(User.Id());
+
+            int id = await cars.CreateCar(carModel, dealerId);
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
     }
 }

@@ -33,9 +33,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Mine">My Cars</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
-                            </li>
+                            if (User.IsInRole("Dealer"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
+                                </li>
+                            }
                         }
                     </ul>
                     <partial name="_LoginPartial" />
