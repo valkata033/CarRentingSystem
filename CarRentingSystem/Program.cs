@@ -23,13 +23,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CarRentingDbContext>();
 
-
-
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
         options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
     });
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddApplicationsServices();
 builder.Services.AddResponseCaching();

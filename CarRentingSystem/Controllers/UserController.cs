@@ -4,6 +4,7 @@ using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using static CarRentingSystem.Areas.Administrator.Constants.AdminConstants;
 
 namespace CarRentingSystem.Controllers
@@ -14,15 +15,18 @@ namespace CarRentingSystem.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IMemoryCache cache;
 
         public UserController(
             SignInManager<ApplicationUser> _signInManager,
             UserManager<ApplicationUser> _userManager,
-            RoleManager<IdentityRole> _roleManager)
+            RoleManager<IdentityRole> _roleManager,
+            IMemoryCache _cache)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             roleManager = _roleManager;
+            cache = _cache;
         }
 
         [HttpGet]
@@ -59,6 +63,8 @@ namespace CarRentingSystem.Controllers
 
             if (result.Succeeded)
             {
+                cache.Remove(UsersCacheKey);
+
                 return RedirectToAction(nameof(UserController.Login), "User");
             }
 
