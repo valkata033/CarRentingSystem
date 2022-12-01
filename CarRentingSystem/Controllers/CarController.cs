@@ -4,6 +4,7 @@ using CarRentingSystem.Extensions;
 using CarRentingSystem.Infrastructure.Data.GlobalConstants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static CarRentingSystem.Areas.Administrator.Constants.AdminConstants;
 
 namespace CarRentingSystem.Controllers
 {
@@ -85,7 +86,7 @@ namespace CarRentingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CarFormModel carModel)
         {
-            if (User.IsInRole("Dealer") == false)
+            if (User.IsInRole(DealerRoleName) == false)
             {
                 TempData[MessageConstants.ErrorMessage] = "You must be dealer to add cars!";
                 return RedirectToAction(nameof(DealerController.Become), "Dealer");

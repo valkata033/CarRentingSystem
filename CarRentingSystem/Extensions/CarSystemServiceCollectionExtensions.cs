@@ -1,5 +1,7 @@
 ﻿using CarRentingSystem.Core.Contracts;
+using CarRentingSystem.Core.Contracts.Admin;
 using CarRentingSystem.Core.Services;
+using CarRentingSystem.Core.Services.Admin;
 using CarRentingSystem.Infrastructure.Data.Common;
 
 namespace CarRentingSystem.Extensions
@@ -11,6 +13,7 @@ namespace CarRentingSystem.Extensions
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<IDealerService, DealerService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

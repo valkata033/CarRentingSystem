@@ -28,6 +28,7 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
+                    
                     <a class="btn btn-warning" asp-controller="Car" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
                     <a class="ml-2 btn btn-danger" asp-controller="Car" asp-action="Delete"

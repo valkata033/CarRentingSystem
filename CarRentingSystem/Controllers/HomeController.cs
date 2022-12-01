@@ -1,7 +1,9 @@
-﻿using CarRentingSystem.Core.Contracts;
+﻿using CarRentingSystem.Areas.Administrator.Controllers;
+using CarRentingSystem.Core.Contracts;
 using CarRentingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using static CarRentingSystem.Areas.Administrator.Constants.AdminConstants;
 
 namespace CarRentingSystem.Controllers
 {
@@ -16,6 +18,11 @@ namespace CarRentingSystem.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction(nameof(AdminController.Index), "Admin", new { area = AreaName });
+            }
+
             var model = await cars.GetAllCarsAsync();
 
             return View(model);

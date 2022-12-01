@@ -1,9 +1,10 @@
-﻿using CarRentingSystem.Core.Models.User;
+﻿using CarRentingSystem.Areas.Administrator.Controllers;
+using CarRentingSystem.Core.Models.User;
 using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
+using static CarRentingSystem.Areas.Administrator.Constants.AdminConstants;
 
 namespace CarRentingSystem.Controllers
 {
@@ -100,13 +101,12 @@ namespace CarRentingSystem.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (await userManager.IsInRoleAsync(user, "Administrator"))
+                    if (User.IsInRole(AdminRoleName))
                     {
-                        
-                        return RedirectToAction("Index", "Admin", new { Area = "Administrator" });
+                        return RedirectToAction(nameof(AdminController.Index), "Admin", new { Area = AreaName });
                     }
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
             }
 
