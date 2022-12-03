@@ -114,9 +114,58 @@ namespace CarRentingSystem.Controllers
 
             int dealerId = await dealers.GetDealerId(User.Id());
 
-            int id = await cars.CreateCar(carModel, dealerId);
+            int id = await cars.CreateCar(carModel, dealerId); 
+
+            TempData[MessageConstants.SuccessMessage] = "You have successfully added a car!";
 
             return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Rent(int id)
+        {
+            if (!await cars.Exists(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "This car does not exist!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!User.IsInRole(AdminRoleName) && await dealers.ExistsById(User.Id()))
+            {
+                TempData[MessageConstants.ErrorMessage] = "Dealers can not rent cars!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (await cars.IsRented(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "This car is already rented!";
+                return RedirectToAction(nameof(All));
+            }
+
+            await cars.Rent(id, User.Id());
+            TempData[MessageConstants.SuccessMessage] = "You rent a car successfully!";
+
+            return RedirectToAction(nameof(Mine));
+        }
+
+        public async Task<IActionResult> Leave(int id)
+        {
+            if (!await cars.Exists(id) || !await cars.IsRented(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "This car does not exist!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!await cars.IsRentedByUserById(id, User.Id()))
+            {
+                TempData[MessageConstants.ErrorMessage] = "Dealers can not leave cars!";
+                return RedirectToAction(nameof(All));
+            }
+
+            await cars.Leave(id);
+            TempData[MessageConstants.SuccessMessage] = "You leave a car successfully!";
+
+            return RedirectToAction(nameof(Mine));
         }
     }
 }

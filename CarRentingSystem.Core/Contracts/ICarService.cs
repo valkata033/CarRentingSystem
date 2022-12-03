@@ -25,5 +25,14 @@ namespace CarRentingSystem.Core.Contracts
         Task<int> CreateCar(CarFormModel model, int dealerId);
 
         Task<CarDetailsModel> GetCarsDetailsById(int carId);
+
+        Task<bool> IsRented(int id);
+
+        Task<bool> IsRentedByUserById(int carId, string userId);
+
+        Task Rent(int carId, string userId);
+
+        Task Leave(int carId);
+
     }
 }

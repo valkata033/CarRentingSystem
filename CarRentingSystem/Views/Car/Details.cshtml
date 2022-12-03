@@ -28,22 +28,25 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    
-                    <a class="btn btn-warning" asp-controller="Car" asp-action="Edit"
-                   asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Car" asp-action="Delete"
-                   asp-route-id="@Model.Id">Delete</a>
-                    @if (!Model.IsRented)
+                    @if (User.IsInRole(DealerRoleName))
                     {
-                        <form class="ml-2" asp-controller="Car"
+                        <a class="btn btn-warning" asp-controller="Car" asp-action="Edit"
+                            asp-route-id="@Model.Id">Edit</a>
+                        <a class="ml-2 btn btn-danger" asp-controller="Car" asp-action="Delete"
+                            asp-route-id="@Model.Id">Delete</a>
+                    }
+                    <p></p>
+                    @if (Model.IsRented == false)
+                    {
+                        <form class="input-group-sm" asp-area="" asp-controller="Car"
                       asp-action="Rent" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Rent" />
                         </form>
                     }
                     else
                     {
-                        <form class="ml-2" asp-controller="Car" asp-action="Leave"
-                      asp-route-id="@Model.Id" method="post">
+                        <form class="input-group-sm" asp-area="" asp-controller="Car"
+                      asp-action="Leave" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Leave" />
                         </form>
                     }

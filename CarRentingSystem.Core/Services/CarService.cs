@@ -187,6 +187,7 @@ namespace CarRentingSystem.Core.Services
                     ImageUrl = x.ImageUrl,
                     FuelType = x.FuelType,
                     Gearbox = x.Gearbox,
+                    IsRented = x.RenterId != null,
                     Category = x.Category.Name,
                     Dealer = new DealerServiceModel()
                     {
@@ -203,6 +204,52 @@ namespace CarRentingSystem.Core.Services
             }
 
             return car;
+        }
+
+        public async Task<bool> IsRented(int id)
+        {
+            var car = await repo.GetByIdAsync<Car>(id);
+
+            return car.RenterId != null;
+        }
+
+        public async Task<bool> IsRentedByUserById(int carId, string userId)
+        {
+            var car = await repo.GetByIdAsync<Car>(carId);
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            if (car.RenterId != userId)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task Leave(int carId)
+        {
+            var car = await repo.GetByIdAsync<Car>(carId);
+
+            if (car != null)
+            {
+                car.RenterId = null;
+                await repo.SaveChangesAsync();
+            }
+        }
+
+        public async Task Rent(int carId, string userId)
+        {
+            var car = await repo.GetByIdAsync<Car>(carId);
+
+            if (car != null)
+            {
+                car.RenterId = userId;
+                await repo.SaveChangesAsync();
+            }
         }
     }
 }
