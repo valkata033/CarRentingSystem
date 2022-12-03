@@ -36,19 +36,22 @@
                             asp-route-id="@Model.Id">Delete</a>
                     }
                     <p></p>
-                    @if (Model.IsRented == false)
+                    if (!User.IsInRole(DealerRoleName))
                     {
-                        <form class="input-group-sm" asp-area="" asp-controller="Car"
-                      asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Rent" />
-                        </form>
-                    }
-                    else
-                    {
-                        <form class="input-group-sm" asp-area="" asp-controller="Car"
-                      asp-action="Leave" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Leave" />
-                        </form>
+                        @if (Model.IsRented == false)
+                        {
+                            <form class="input-group-sm" asp-area="" asp-controller="Car"
+                                asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                                <input class="btn btn-primary" type="submit" value="Rent" />
+                            </form>
+                        }
+                        else
+                        {
+                            <form class="input-group-sm" asp-area="" asp-controller="Car"
+                                asp-action="Leave" asp-route-id="@Model.Id" method="post">
+                                <input class="btn btn-primary" type="submit" value="Leave" />
+                            </form>
+                        }
                     }
                 }
             </div>

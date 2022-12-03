@@ -154,6 +154,23 @@ namespace CarRentingSystem.Core.Services
             return car.Id;
         }
 
+        public async Task Edit(int carId, CarFormModel model)
+        {
+            var car = await repo.GetByIdAsync<Car>(carId);
+
+            car.Brand = model.Brand;
+            car.Model = model.Model;
+            car.MakeYear = model.MakeYear;
+            car.Description = model.Description;
+            car.ImageUrl = model.ImageUrl;
+            car.Gearbox = model.Gearbox;
+            car.FuelType = model.FuelType;
+            car.PricePerDay = model.PricePerDay;
+            car.CategoryId = model.CategoryId;
+            
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<bool> Exists(int carId)
         {
             return await repo.AllReadonly<Car>().AnyAsync(x => x.Id == carId);
@@ -170,6 +187,12 @@ namespace CarRentingSystem.Core.Services
                     ImageUrl = x.ImageUrl
                 })
                 .ToListAsync();
+        }
+
+        public async Task<int> GetCarCategoryId(int carId)
+        {
+            var car = await repo.GetByIdAsync<Car>(carId);
+            return car.CategoryId;
         }
 
         public async Task<CarDetailsModel> GetCarsDetailsById(int carId)
@@ -204,6 +227,25 @@ namespace CarRentingSystem.Core.Services
             }
 
             return car;
+        }
+
+        public async Task<bool> HasDealerWithId(int carId, string currUserId)
+        {
+            var car = await repo.GetByIdAsync<Car>(carId);
+            var dealer = await repo.AllReadonly<Dealer>()
+                .FirstOrDefaultAsync(x => x.Id == car.DealerId);
+
+            if (dealer == null)
+            {
+                return false;
+            }
+
+            if (dealer.UserId != currUserId)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<bool> IsRented(int id)

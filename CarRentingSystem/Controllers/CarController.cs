@@ -121,6 +121,75 @@ namespace CarRentingSystem.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!await cars.Exists(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "This car does not exist!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!await cars.HasDealerWithId(id, User.Id()))
+            {
+                TempData[MessageConstants.ErrorMessage] = "You can not edit this car!";
+                return RedirectToAction(nameof(All));
+            }
+
+            var car = await cars.GetCarsDetailsById(id);
+
+            int carCategoryId = await cars.GetCarCategoryId(car.Id);
+
+            var houseModel = new CarFormModel()
+            {
+                Brand = car.Brand,
+                MakeYear = car.MakeYear,
+                Model = car.Model,
+                Description = car.Description,
+                PricePerDay = car.PricePerDay,
+                ImageUrl = car.ImageUrl,
+                FuelType = car.FuelType,
+                Gearbox = car.Gearbox,
+                CategoryId = carCategoryId,
+                Categories = await cars.AllCategories()
+            };
+
+            return View(houseModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, CarFormModel carModel)
+        {
+            if (!await cars.Exists(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "This car does not exist!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!await cars.HasDealerWithId(id, User.Id()))
+            {
+                TempData[MessageConstants.ErrorMessage] = "You can not edit this car!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!await cars.CategoryExist(carModel.CategoryId))
+            {
+                ModelState.AddModelError(nameof(carModel.CategoryId),
+                    "This category does not exist!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                carModel.Categories = await cars.AllCategories();
+                return View(carModel);
+            }
+
+            await cars.Edit(id, carModel);
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Rent(int id)
         {
@@ -148,6 +217,7 @@ namespace CarRentingSystem.Controllers
             return RedirectToAction(nameof(Mine));
         }
 
+        [HttpPost]
         public async Task<IActionResult> Leave(int id)
         {
             if (!await cars.Exists(id) || !await cars.IsRented(id))
