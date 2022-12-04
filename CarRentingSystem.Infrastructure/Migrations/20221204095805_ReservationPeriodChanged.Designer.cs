@@ -4,6 +4,7 @@ using CarRentingSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentingSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    partial class CarRentingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204095805_ReservationPeriodChanged")]
+    partial class ReservationPeriodChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,16 +100,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ed4dfd3-bdbe-4f25-ae38-333cd5154d01",
+                            ConcurrencyStamp = "24994c87-0906-4c4b-8d84-1e248029cae6",
                             Email = "dealer@mail.com",
                             EmailConfirmed = false,
                             FullName = "Dealer",
                             LockoutEnabled = false,
                             NormalizedEmail = "dealer@mail.com",
                             NormalizedUserName = "dealer@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF4N1KflI2XN2uWabUgl/4jS4KsuYnbYAGECUdsbGYVY29hpEPkiQkVni7gAJadqdw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELpN4XOXOQ8y7QN7DOUZt4LVjIKCuHNcfc033Cd03IYgvg4ypjzj8isoNsfqMVYt8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "23ee8206-dc32-4935-a6f7-70bd46e9f7fe",
+                            SecurityStamp = "234d4ae0-ca88-493f-9646-eba02d48b9d5",
                             TwoFactorEnabled = false,
                             UserName = "dealer@mail.com"
                         },
@@ -115,16 +117,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "59678593-1560-46db-8c2e-7cd28671a09e",
+                            ConcurrencyStamp = "f96b2def-9694-4a29-b16a-6095666bf4bd",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FullName = "Guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG+MZiQyVdZpHqxtCok+v/Ef6rlQxuTUnK3/DNzrsBIdwhDvqJRk446dOtVee12jvg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPcfMGp0N5AGTR5QK5j/36FdgTiJpBhe53TZYLfiycmriNMTG6ktIJ4rv8/1m8+lwg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1366be58-2884-4fc9-80eb-61dd6a9bdaf2",
+                            SecurityStamp = "89d96dfb-224f-4f09-87ad-0577ccf3e15c",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -132,16 +134,16 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "4078b0fd-3914-461c-8c6b-06bda682647d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6bd3d75b-822c-4633-bc3d-c113567ec538",
+                            ConcurrencyStamp = "f2640a62-16ec-4e63-b423-c675e7389b12",
                             Email = "LuxuryDealer@abv.bg",
                             EmailConfirmed = false,
                             FullName = "Luxury Dealer",
                             LockoutEnabled = false,
                             NormalizedEmail = "LuxuryDealer@abv.bg",
                             NormalizedUserName = "dealer123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO6gAB/AUFRBtEMyDv5cPLfUq+Smf9IxEao684fcSfYS+FrPDcoRP1eFeOG9StnqvQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF5iqC6OPSLrAPBPFcPFM5VfliEBH+SCl59ACAYGwCTsuxZrREVWRMxGCnFcjTZE2Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e51df23e-2d59-4592-a475-4900f8457bc3",
+                            SecurityStamp = "ffee41f3-1199-4290-b775-59ab33a7f697",
                             TwoFactorEnabled = false,
                             UserName = "dealer123"
                         });
@@ -518,12 +520,6 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
                     b.Property<int>("ReservationPeriodId")
                         .HasColumnType("int");
 
@@ -543,11 +539,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = 1,
                             CarId = 1,
-                            EndDate = new DateTime(2022, 12, 9, 12, 18, 34, 60, DateTimeKind.Local).AddTicks(357),
-                            IsActive = false,
-                            Price = 0,
+                            EndDate = new DateTime(2022, 12, 9, 11, 58, 5, 537, DateTimeKind.Local).AddTicks(8805),
                             ReservationPeriodId = 2,
-                            StartDate = new DateTime(2022, 12, 4, 12, 18, 34, 60, DateTimeKind.Local).AddTicks(313)
+                            StartDate = new DateTime(2022, 12, 4, 11, 58, 5, 537, DateTimeKind.Local).AddTicks(8767)
                         });
                 });
 
@@ -562,6 +556,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                     b.Property<int>("Days")
                         .HasColumnType("int");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("ReservationPeriods");
@@ -570,22 +567,26 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Days = 3
+                            Days = 3,
+                            Price = 50
                         },
                         new
                         {
                             Id = 2,
-                            Days = 5
+                            Days = 5,
+                            Price = 250
                         },
                         new
                         {
                             Id = 3,
-                            Days = 10
+                            Days = 10,
+                            Price = 500
                         },
                         new
                         {
                             Id = 4,
-                            Days = 30
+                            Days = 30,
+                            Price = 1500
                         });
                 });
 

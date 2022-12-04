@@ -10,8 +10,5 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         [Required]
         public int Days { get; set; }
 
-        [Required]
-        public int Price { get; set; }
-
     }
 }

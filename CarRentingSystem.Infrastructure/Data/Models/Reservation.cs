@@ -15,6 +15,12 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         public DateTime EndDate { get; set; }
 
         [Required]
+        public int Price { get; set; }
+
+        [Required]
+        public bool IsActive { get; set; }
+
+        [Required]
         [ForeignKey(nameof(Car))]
         public int CarId { get; set; }
         public Car Car { get; set; } = null!;

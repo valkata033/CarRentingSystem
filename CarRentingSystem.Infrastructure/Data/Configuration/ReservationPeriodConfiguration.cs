@@ -18,26 +18,22 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                 new ReservationPeriod()
                 {
                     Id = 1,
-                    Days = 3,
-                    Price = 50
+                    Days = 3
                 },
                 new ReservationPeriod()
                 {
                     Id = 2,
-                    Days = 5,
-                    Price = 250
+                    Days = 5
                 },
                 new ReservationPeriod()
                 {
                     Id = 3,
-                    Days = 10,
-                    Price = 500
+                    Days = 10
                 },
                 new ReservationPeriod()
                 {
                     Id = 4,
-                    Days = 30,
-                    Price = 1500
+                    Days = 30
                 }
             };
         }

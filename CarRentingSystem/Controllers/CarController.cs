@@ -60,16 +60,16 @@ namespace CarRentingSystem.Controllers
             return View(myCars);
         }
 
-        public async Task<IActionResult> Details(CarDetailsModel model)
+        public async Task<IActionResult> Details(CarDetailsModel modell)
         {
-            if ((await cars.Exists(model.Id)) == false)
+            if ((await cars.Exists(modell.Id)) == false)
             {
                 TempData[MessageConstants.ErrorMessage] = "Car with this id do not exist!";
 
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            var carModel = await cars.GetCarsDetailsById(model.Id);
+            var carModel = await cars.GetCarsDetailsById(modell.Id);
 
             return View(carModel);
         }
@@ -189,6 +189,60 @@ namespace CarRentingSystem.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!await cars.Exists(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "This car does not exist!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!await cars.HasDealerWithId(id, User.Id()))
+            {
+                TempData[MessageConstants.ErrorMessage] = "You can not delete this car!";
+                return RedirectToAction(nameof(All));
+            }
+
+            var car = await cars.GetCarsDetailsById(id);
+
+            var model = new CarDetailsViewModel()
+            {
+                Brand = car.Brand,
+                Model = car.Model,
+                ImageUrl = car.ImageUrl,
+                Category = car.Category
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, CarDetailsViewModel carModel)
+        {
+            if (!await cars.Exists(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "This car does not exist!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!await cars.HasDealerWithId(id, User.Id()))
+            {
+                TempData[MessageConstants.ErrorMessage] = "You can not delete this car!";
+                return RedirectToAction(nameof(All));
+            }
+
+            if (await cars.IsRented(id))
+            {
+                TempData[MessageConstants.ErrorMessage] = "You can not delete rented cars!";
+                return RedirectToAction(nameof(All));
+            }
+
+            await cars.Delete(id);
+
+            TempData[MessageConstants.SuccessMessage] = "You remove a car successfully!";
+            return RedirectToAction(nameof(All));
+        }
 
         [HttpPost]
         public async Task<IActionResult> Rent(int id)
@@ -216,7 +270,7 @@ namespace CarRentingSystem.Controllers
 
             return RedirectToAction(nameof(Mine));
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Leave(int id)
         {

@@ -32,6 +32,8 @@ namespace CarRentingSystem.Core.Contracts
 
         Task<int> GetCarCategoryId(int carId);
 
+        Task Delete(int carId);
+
         Task<bool> IsRented(int id);
 
         Task<bool> IsRentedByUserById(int carId, string userId);

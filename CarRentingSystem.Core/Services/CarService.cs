@@ -4,7 +4,6 @@ using CarRentingSystem.Core.Models.Dealer;
 using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using CarRentingSystem.Infrastructure.Data.Common;
-using CarRentingSystem.Infrastructure.Data.Models.Enum;
 
 namespace CarRentingSystem.Core.Services
 {
@@ -21,11 +20,14 @@ namespace CarRentingSystem.Core.Services
             string searchItem = null, CarSorting sorting = CarSorting.Newest, int currentPage = 1, 
             int CarsPerPage = 1)
         {
-            var carsQuery = repo.All<Car>().AsQueryable();
+            var carsQuery = repo.All<Car>()
+                .Where(c => c.IsActive == true)
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(category))
             {
-                carsQuery = repo.All<Car>().Where(x => x.Category.Name == category);
+                carsQuery = repo.All<Car>()
+                    .Where(x => x.Category.Name == category);
             }
 
             if (!string.IsNullOrWhiteSpace(searchItem))
@@ -72,6 +74,7 @@ namespace CarRentingSystem.Core.Services
         {
             return await repo
                .All<Car>()
+               .Where(x => x.IsActive == true)
                .Where(x => x.DealerId == dealerId)
                .Select(x => new CarModel()
                {
@@ -91,6 +94,7 @@ namespace CarRentingSystem.Core.Services
         {
             return await repo
                 .All<Car>()
+                .Where(x => x.IsActive == true)
                 .Where(x => x.RenterId == userId)
                 .Select(x => new CarModel()
                 {
@@ -154,6 +158,14 @@ namespace CarRentingSystem.Core.Services
             return car.Id;
         }
 
+        public async Task Delete(int carId)
+        {
+            var car = await repo.GetByIdAsync<Car>(carId);
+            car.IsActive = false;
+
+            await repo.SaveChangesAsync();
+        }
+
         public async Task Edit(int carId, CarFormModel model)
         {
             var car = await repo.GetByIdAsync<Car>(carId);
@@ -173,12 +185,15 @@ namespace CarRentingSystem.Core.Services
 
         public async Task<bool> Exists(int carId)
         {
-            return await repo.AllReadonly<Car>().AnyAsync(x => x.Id == carId);
+            return await repo.AllReadonly<Car>()
+                .Where(x => x.IsActive == true)
+                .AnyAsync(x => x.Id == carId);
         }
 
         public async Task<IEnumerable<CarModel>> GetAllCarsAsync()
         {
             return await repo.AllReadonly<Car>()
+                .Where(x => x.IsActive == true)
                 .Select(x => new CarModel()
                 {
                     Id = x.Id,
@@ -198,6 +213,7 @@ namespace CarRentingSystem.Core.Services
         public async Task<CarDetailsModel> GetCarsDetailsById(int carId)
         {
             var car =  await repo.AllReadonly<Car>()
+                .Where(x => x.IsActive == true)
                 .Where(x => x.Id == carId)
                 .Select(x => new CarDetailsModel()
                 {
@@ -208,8 +224,8 @@ namespace CarRentingSystem.Core.Services
                     PricePerDay = x.PricePerDay,
                     Description = x.Description,
                     ImageUrl = x.ImageUrl,
-                    FuelType = x.FuelType,
                     Gearbox = x.Gearbox,
+                    FuelType = x.FuelType,
                     IsRented = x.RenterId != null,
                     Category = x.Category.Name,
                     Dealer = new DealerServiceModel()
@@ -276,22 +292,43 @@ namespace CarRentingSystem.Core.Services
         {
             var car = await repo.GetByIdAsync<Car>(carId);
 
-            if (car != null)
+            var reservation = await repo.All<Reservation>()
+                .Where(x => x.IsActive)
+                .FirstOrDefaultAsync(x => x.CarId == carId);
+
+            if (car != null && reservation != null)
             {
                 car.RenterId = null;
-                await repo.SaveChangesAsync();
+                reservation.IsActive = false;
             }
+
+            await repo.SaveChangesAsync();
         }
 
         public async Task Rent(int carId, string userId)
         {
             var car = await repo.GetByIdAsync<Car>(carId);
 
+            var period = await repo.GetByIdAsync<ReservationPeriod>(1);
+               
+            var reservation = new Reservation()
+            {
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(period.Days),
+                Price = car.PricePerDay * period.Days,
+                IsActive = true,
+                CarId = carId,
+                ReservationPeriodId = period.Id
+            };
+
+            await repo.AddAsync(reservation);
+
             if (car != null)
             {
                 car.RenterId = userId;
-                await repo.SaveChangesAsync();
             }
+
+            await repo.SaveChangesAsync();
         }
     }
 }
