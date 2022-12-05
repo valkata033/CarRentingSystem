@@ -4,6 +4,7 @@ using CarRentingSystem.Extensions;
 using CarRentingSystem.Infrastructure.Data.GlobalConstants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static CarRentingSystem.Areas.Administrator.Constants.AdminConstants;
 
 namespace CarRentingSystem.Controllers
 {
@@ -55,7 +56,7 @@ namespace CarRentingSystem.Controllers
 
             try
             {
-                await dealers.Create(userId, model.PhoneNumber, model.Name);
+                await dealers.Create(userId, model.PhoneNumber, model.Name, DealerRoleName);
             }
             catch (Exception)
             {

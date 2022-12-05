@@ -2,7 +2,7 @@
 {
     public interface IDealerService
     {
-        Task Create(string userId, string phoneNumber, string name);
+        Task Create(string userId, string phoneNumber, string name, string roleName);
 
         Task<bool> ExistsById(string userId);
 

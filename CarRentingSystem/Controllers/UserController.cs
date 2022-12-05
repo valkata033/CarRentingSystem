@@ -61,6 +61,8 @@ namespace CarRentingSystem.Controllers
 
             var result = await userManager.CreateAsync(user, model.Password);
 
+            await userManager.AddToRoleAsync(user, UserRoleName);
+
             if (result.Succeeded)
             {
                 cache.Remove(UsersCacheKey);
