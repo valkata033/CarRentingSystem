@@ -1,10 +1,11 @@
-﻿using CarRentingSystem.Infrastructure.Data.GlobalConstants;
+﻿using CarRentingSystem.Core.Contracts;
+using CarRentingSystem.Infrastructure.Data.GlobalConstants;
 using CarRentingSystem.Infrastructure.Data.Models.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRentingSystem.Core.Models.Car
 {
-    public class CarFormModel
+    public class CarFormModel : ICarModel
     {
         [Required]
         [StringLength(DataConstants.Car.CarBrandMaxValue, MinimumLength = DataConstants.Car.CarBrandMinValue)]

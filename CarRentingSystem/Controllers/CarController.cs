@@ -1,4 +1,5 @@
 ﻿using CarRentingSystem.Core.Contracts;
+using CarRentingSystem.Core.Extensions;
 using CarRentingSystem.Core.Models.Car;
 using CarRentingSystem.Extensions;
 using CarRentingSystem.Infrastructure.Data.GlobalConstants;
@@ -60,18 +61,26 @@ namespace CarRentingSystem.Controllers
             return View(myCars);
         }
 
-        public async Task<IActionResult> Details(CarDetailsModel modell)
+        public async Task<IActionResult> Details(int id, string information)
         {
-            if ((await cars.Exists(modell.Id)) == false)
+            if ((await cars.Exists(id)) == false)
             {
                 TempData[MessageConstants.ErrorMessage] = "Car with this id do not exist!";
 
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            var carModel = await cars.GetCarsDetailsById(modell.Id);
+            var carsModel = await cars.GetCarsDetailsById(id);
+            
+            var info = carsModel.GetInformation();
+            if (information != carsModel.GetInformation())
+            {
+                TempData[MessageConstants.ErrorMessage] = "You do not have permission to do this!";
 
-            return View(carModel);
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(carsModel);
         }
 
         [HttpGet]
@@ -118,7 +127,7 @@ namespace CarRentingSystem.Controllers
 
             TempData[MessageConstants.SuccessMessage] = "You have successfully added a car!";
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id = id, information = carModel.GetInformation() });
         }
 
         [HttpGet]
@@ -186,7 +195,7 @@ namespace CarRentingSystem.Controllers
 
             await cars.Edit(id, carModel);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id = id, information = carModel.GetInformation() });
         }
 
         [HttpGet]

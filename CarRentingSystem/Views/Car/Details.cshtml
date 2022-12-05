@@ -15,25 +15,43 @@
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;"><u>@Model.Brand @Model.Model</u></p>
-            <p>Year: @Model.MakeYear</p>
-            <p>Gearbox: @Model.Gearbox</p>
-            <p>Fuel type: @Model.FuelType</p>
+            <p>Year: <b>@Model.MakeYear</b></p>
+            <p>Gearbox: <b>@Model.Gearbox</b></p>
+            <p>Fuel type: <b>@Model.FuelType</b></p>
             <p>
                 Price Per Month:
                 <b>@String.Format("{0:f2}", Model.PricePerDay) BGN</b>
             </p>
-            <p>@Model.Description</p>
+            <p>Description: <b>@Model.Description</b></p>
             <p>Category: <b>@Model.Category</b></p>
             <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
+            <p></p>
+            <p>You can rent @Model.Brand @Model.Model for:</p>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnratio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1" onclick="RenderPrice1()">3 days</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnratio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2">5 days</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnratio3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio3">10 days</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnratio4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio3">30 days</label>
+            </div>
+
+            <p>Price will be:  BGN</p>
+
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
                     @if (User.IsInRole(DealerRoleName))
                     {
                         <a class="btn btn-warning" asp-controller="Car" asp-action="Edit"
-                            asp-route-id="@Model.Id">Edit</a>
+                   asp-route-id="@Model.Id">Edit</a>
                         <a class="ml-2 btn btn-danger" asp-controller="Car" asp-action="Delete"
-                            asp-route-id="@Model.Id">Delete</a>
+                   asp-route-id="@Model.Id">Delete</a>
                     }
                     <p></p>
                     if (!User.IsInRole(DealerRoleName))
@@ -41,30 +59,21 @@
                         @if (Model.IsRented == false)
                         {
                             <form class="input-group-sm" asp-area="" asp-controller="Car"
-                                asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                      asp-action="Rent" asp-route-id="@Model.Id" method="post">
                                 <input class="btn btn-primary" type="submit" value="Rent" />
                             </form>
                         }
                         else
                         {
                             <form class="input-group-sm" asp-area="" asp-controller="Car"
-                                asp-action="Leave" asp-route-id="@Model.Id" method="post">
+                      asp-action="Leave" asp-route-id="@Model.Id" method="post">
                                 <input class="btn btn-primary" type="submit" value="Leave" />
                             </form>
                         }
                     }
                 }
             </div>
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
 
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
-            </div>
             <p></p>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
@@ -76,3 +85,20 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+        let ratio1 = document.getElementById(btnratio1);
+        let ratio2 = document.getElementById(btnratio2);
+        let ratio3 = document.getElementById(btnratio3);
+        let ratio4 = document.getElementById(btnratio4);
+        function RenderPrice1()
+        {
+            ratio1.addEventListener('click', (e) => {
+                e.preventDefault()
+
+                return ratio1.textContent
+            });
+        }
+    </script>
+}

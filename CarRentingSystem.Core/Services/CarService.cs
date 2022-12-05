@@ -199,7 +199,8 @@ namespace CarRentingSystem.Core.Services
                     Id = x.Id,
                     Brand = x.Brand,
                     Model = x.Model,
-                    ImageUrl = x.ImageUrl
+                    ImageUrl = x.ImageUrl,
+                    PricePerDay = x.PricePerDay,
                 })
                 .ToListAsync();
         }
