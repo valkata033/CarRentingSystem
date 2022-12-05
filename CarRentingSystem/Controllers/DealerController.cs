@@ -53,7 +53,15 @@ namespace CarRentingSystem.Controllers
                 return View(model);
             }
 
-            await dealers.Create(userId, model.PhoneNumber, model.Name);
+            try
+            {
+                await dealers.Create(userId, model.PhoneNumber, model.Name);
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something get wrong! Check your data!";
+                return View(model);
+            }
 
             TempData[MessageConstants.SuccessMessage] = "You become dealer successfully!";
 

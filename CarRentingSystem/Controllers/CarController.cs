@@ -24,21 +24,28 @@ namespace CarRentingSystem.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllCarsQueryModel model)
         {
-            var queryResult = await cars.All(
+            try
+            {
+                var queryResult = await cars.All(
                 model.Category,
                 model.SearchTerm,
                 model.Sorting,
                 model.CurrentPage,
                 AllCarsQueryModel.CarsPerPage);
 
-            model.TotalCarsCount = queryResult.TotalCarsCount;
-            model.Cars = queryResult.Cars;
+                model.TotalCarsCount = queryResult.TotalCarsCount;
+                model.Cars = queryResult.Cars;
 
-            var carsCategories = await cars.AllCategoriesNames();
-            model.Categories = carsCategories;
+                var carsCategories = await cars.AllCategoriesNames();
+                model.Categories = carsCategories;
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something get wrong! Could not load cars!";
+                return View(model);
+            }
 
             return View(model);
-        
         }
 
         public async Task<IActionResult> Mine()
@@ -122,8 +129,17 @@ namespace CarRentingSystem.Controllers
             }
 
             int dealerId = await dealers.GetDealerId(User.Id());
+            int id;
 
-            int id = await cars.CreateCar(carModel, dealerId); 
+            try
+            {
+                id = await cars.CreateCar(carModel, dealerId); 
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something get wrong! Could not create a car!";
+                return View(carModel);
+            }
 
             TempData[MessageConstants.SuccessMessage] = "You have successfully added a car!";
 
@@ -193,7 +209,15 @@ namespace CarRentingSystem.Controllers
                 return View(carModel);
             }
 
-            await cars.Edit(id, carModel);
+            try
+            {
+                await cars.Edit(id, carModel);
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something get wrong! Could not edit this car!";
+                return View(carModel);
+            }
 
             return RedirectToAction(nameof(Details), new { id = id, information = carModel.GetInformation() });
         }
@@ -247,7 +271,15 @@ namespace CarRentingSystem.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            await cars.Delete(id);
+            try
+            {
+                await cars.Delete(id);
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something get wrong! Could not delete this car!";
+                return View(carModel);
+            }
 
             TempData[MessageConstants.SuccessMessage] = "You remove a car successfully!";
             return RedirectToAction(nameof(All));
@@ -274,7 +306,16 @@ namespace CarRentingSystem.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            await cars.Rent(id, User.Id());
+            try
+            {
+                await cars.Rent(id, User.Id());
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something get wrong! Could not rent this car!";
+                return RedirectToAction(nameof(All));
+            }
+
             TempData[MessageConstants.SuccessMessage] = "You rent a car successfully!";
 
             return RedirectToAction(nameof(Mine));
@@ -295,7 +336,16 @@ namespace CarRentingSystem.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            await cars.Leave(id);
+            try
+            {
+                await cars.Leave(id);
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something get wrong! Could not leave this car!";
+                return RedirectToAction(nameof(All));
+            }
+
             TempData[MessageConstants.SuccessMessage] = "You leave a car successfully!";
 
             return RedirectToAction(nameof(Mine));
