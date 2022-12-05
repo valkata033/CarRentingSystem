@@ -1,6 +1,4 @@
-﻿@using CarRentingSystem.Core.Models.User
-
-@model LoginViewModel
+﻿@model LoginViewModel
 
 @{
     ViewData["Title"] = "Log in";
@@ -25,6 +23,11 @@
                 </div>
                 <div class="text-center">
                     <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p></p>
+                    <p>If you don't have account:</p> 
+                    <a asp-controller="User" asp-action="Register">Click here!</a>
                 </div>
             </form>
         </section>
