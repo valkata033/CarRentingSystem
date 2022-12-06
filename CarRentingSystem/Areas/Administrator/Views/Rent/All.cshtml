@@ -1,0 +1,42 @@
+﻿@model IEnumerable<AllRentsModel>
+
+@{
+    ViewBag.Title = "All Rents";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Id</label></th>
+            <th><label>Start Date</label></th>
+            <th><label>End Date</label></th>
+            <th><label>Price</label></th>
+            <th><label>Is Active</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rent in Model)
+        {
+            <tr>
+                <td><label>@rent.Id</label></td>
+                <td><label>@rent.StartDate</label></td>
+                <td><label>@rent.EndDate</label></td>
+                <td><label>@rent.Price</label></td>
+                <td>
+                    @if (rent.IsActive)
+                    {
+                        <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+                    }
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
