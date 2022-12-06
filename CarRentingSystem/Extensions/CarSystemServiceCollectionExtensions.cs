@@ -15,6 +15,7 @@ namespace CarRentingSystem.Extensions
             services.AddScoped<IDealerService, DealerService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRentService, RentService>();
+            services.AddScoped<IDealershipService, DealershipService>();
 
             return services;
         }

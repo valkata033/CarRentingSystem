@@ -14,7 +14,7 @@ namespace CarRentingSystem.Core.Contracts
 
         Task AddDealership(string userId, AddDealershipModel model);
 
-        Task<IEnumerable<AllCitiesServiceModel>> GetAllCitiesAsync();
+        Task<IEnumerable<CityServiceModel>> GetAllCitiesAsync();
 
         Task<bool> CityExistById(int cityId);
     }

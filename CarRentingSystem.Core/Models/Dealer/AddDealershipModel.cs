@@ -20,7 +20,7 @@ namespace CarRentingSystem.Core.Models.Dealer
         [Display(Name = "City")]
         public int CityId { get; set; }
 
-        public IEnumerable<AllCitiesServiceModel> Cities { get; set; }
-            = new List<AllCitiesServiceModel>();
+        public IEnumerable<CityServiceModel> Cities { get; set; }
+            = new List<CityServiceModel>();
     }
 }

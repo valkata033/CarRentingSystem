@@ -65,11 +65,11 @@ namespace CarRentingSystem.Core.Services
                 .AnyAsync(x => x.UserId == userId);
         }
 
-        public async Task<IEnumerable<AllCitiesServiceModel>> GetAllCitiesAsync()
+        public async Task<IEnumerable<CityServiceModel>> GetAllCitiesAsync()
         {
             return await repo.All<City>()
                 .OrderBy(x => x.Id)
-                .Select(x => new AllCitiesServiceModel()
+                .Select(x => new CityServiceModel()
                 {
                     Id = x.Id,
                     Name = x.Name

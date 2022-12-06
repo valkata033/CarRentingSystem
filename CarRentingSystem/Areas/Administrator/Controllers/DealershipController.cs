@@ -6,35 +6,34 @@ using static CarRentingSystem.Areas.Administrator.Constants.AdminConstants;
 
 namespace CarRentingSystem.Areas.Administrator.Controllers
 {
-    public class RentController : BaseController
+    public class DealershipController : BaseController
     {
-        private readonly IRentService rentService;
+        private readonly IDealershipService service;
         private readonly IMemoryCache cache;
 
-        public RentController(
-            IRentService _rentService,
+        public DealershipController(
+            IDealershipService _service,
             IMemoryCache _cache)
         {
-            rentService = _rentService;
+            service = _service;
             cache = _cache;
         }
 
         public async Task<IActionResult> All()
         {
-            var rents = cache.Get<IEnumerable<AllRentsModel>>(RentsCacheKey);
+            var dealerships = cache.Get<IEnumerable<AllDealershipsModel>>(DealershipsCacheKey);
 
-            if (rents == null)
+            if (dealerships == null)
             {
-                rents = await rentService.GetAllRentsAsync();
+                dealerships = await service.GetAllDealershipsAsync();
 
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(5));
 
-                cache.Set(RentsCacheKey, rents, cacheOptions);
+                cache.Set(DealershipsCacheKey, dealerships, cacheOptions);
             }
 
-            return View(rents);
+            return View(dealerships);
         }
     }
 }
-

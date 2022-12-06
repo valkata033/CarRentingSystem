@@ -1,5 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<AllDealershipsModel>
+
 @{
+    ViewBag.Title = "All Dealerships";
 }
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Id</label></th>
+            <th><label>Name</label></th>
+            <th><label>Address</label></th>
+            <th><label>City</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dealership in Model)
+        {
+            <tr>
+                <td><label>@dealership.Id</label></td>
+                <td><label>@dealership.Name</label></td>
+                <td><label>@dealership.Address</label></td>
+                <td><label>@dealership.City</label></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,6 +1,6 @@
 ﻿namespace CarRentingSystem.Core.Models.Dealer
 {
-    public class AllCitiesServiceModel
+    public class CityServiceModel
     {
         public int Id { get; set; }
 
