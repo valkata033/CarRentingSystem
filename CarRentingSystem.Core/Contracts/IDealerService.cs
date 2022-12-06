@@ -1,4 +1,6 @@
-﻿namespace CarRentingSystem.Core.Contracts
+﻿using CarRentingSystem.Core.Models.Dealer;
+
+namespace CarRentingSystem.Core.Contracts
 {
     public interface IDealerService
     {
@@ -9,5 +11,11 @@
         Task<int> GetDealerId(string userId);
 
         Task<bool> HasDealerWithPhoneNumber(string phoneNumber);
+
+        Task AddDealership(string userId, AddDealershipModel model);
+
+        Task<IEnumerable<AllCitiesServiceModel>> GetAllCitiesAsync();
+
+        Task<bool> CityExistById(int cityId);
     }
 }
