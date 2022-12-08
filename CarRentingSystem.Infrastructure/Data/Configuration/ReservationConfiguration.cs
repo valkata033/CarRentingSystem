@@ -22,6 +22,8 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     EndDate = DateTime.Now + TimeSpan.FromDays(5),
                     CarId = 1,
                     ReservationPeriodId = 2,
+                    IsActive = false,
+                    Price = 200
                 }
             };
         }

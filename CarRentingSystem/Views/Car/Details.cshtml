@@ -41,7 +41,7 @@
                 <label class="btn btn-outline-primary" for="btnradio3">30 days</label>
             </div>
 
-            <p>Price will be:  BGN</p>
+            <p>Price will be: RenderPrice() BGN</p>
 
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
@@ -88,17 +88,13 @@
 
 @section scripts {
     <script type="text/javascript">
-        let ratio1 = document.getElementById(btnratio1);
-        let ratio2 = document.getElementById(btnratio2);
-        let ratio3 = document.getElementById(btnratio3);
-        let ratio4 = document.getElementById(btnratio4);
-        function RenderPrice1()
+        function RenderPrice()
         {
-            ratio1.addEventListener('click', (e) => {
-                e.preventDefault()
-
-                return ratio1.textContent
+            $('#btnratio1').on('click', e => {
+                3 * @Model.PricePerDay
             });
+
+
         }
     </script>
 }

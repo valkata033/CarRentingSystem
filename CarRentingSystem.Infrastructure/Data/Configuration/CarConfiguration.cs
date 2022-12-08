@@ -28,8 +28,7 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                     Gearbox = Gearbox.Manual,
                     ImageUrl = "https://imgd.aeplcdn.com/0x0/ec/69/55/13232/img/l/BMW-5-Series-Front-view-27016.jpg?q=75",
                     CategoryId = 3,
-                    DealerId = 2,
-                    RenterId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"
+                    DealerId = 2
                 },
                 new Car()
                 {
