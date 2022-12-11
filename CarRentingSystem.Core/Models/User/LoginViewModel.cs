@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using CarRentingSystem.Infrastructure.Data.GlobalConstants;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CarRentingSystem.Core.Models.User
 {
@@ -14,5 +15,8 @@ namespace CarRentingSystem.Core.Models.User
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
+
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+            = new List<AuthenticationScheme>();
     }
 }

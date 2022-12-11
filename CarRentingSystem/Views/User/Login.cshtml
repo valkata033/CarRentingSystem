@@ -1,7 +1,7 @@
 ﻿@model LoginViewModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Sign in";
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
@@ -22,8 +22,19 @@
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="text-center">
-                    <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="btn btn-primary">Sign in</button>
                 </div>
+                @*
+                <form id="external-account" asp-action="ExternalLogin" method="post" class="form-horizontal">
+                    <div>
+                        <p>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in">Sign in with Facebook</button>
+                            }
+                        </p>
+                    </div>
+                </form>*@
                 <div class="form-group">
                     <p></p>
                     <a asp-controller="User" asp-action="Register">Register as a new user</a>
@@ -31,4 +42,4 @@
             </form>
         </section>
     </div>
-</div
+</div>
