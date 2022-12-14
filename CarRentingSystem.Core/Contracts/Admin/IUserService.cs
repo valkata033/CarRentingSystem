@@ -7,5 +7,7 @@ namespace CarRentingSystem.Core.Contracts.Admin
         Task<string> GetUserFullNameAsync(string userId);
 
         Task<IEnumerable<UserServiceModel>> GetAllAsync();
+
+        Task DeleteUser(string userId);
     }
 }

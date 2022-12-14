@@ -35,5 +35,14 @@ namespace CarRentingSystem.Areas.Administrator.Controllers
 
             return View(users);
         }
+
+        public async Task<IActionResult> Delete(string UserId)
+        {
+            await userService.DeleteUser(UserId);
+
+            cache.Remove(UsersCacheKey);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

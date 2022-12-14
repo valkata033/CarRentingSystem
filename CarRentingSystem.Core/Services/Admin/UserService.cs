@@ -15,11 +15,23 @@ namespace CarRentingSystem.Core.Services.Admin
             repo = _repo;
         }
 
+        public async Task DeleteUser(string UserId)
+        {
+            var user = await repo.GetByIdAsync<ApplicationUser>(UserId);
+            
+            if (user != null)
+            {
+                user.IsActive = false;
+                await repo.SaveChangesAsync();
+            }
+        }
+
         public async Task<IEnumerable<UserServiceModel>> GetAllAsync()
         {
             List<UserServiceModel> result;
 
             result = await repo.AllReadonly<Dealer>()
+                .Where(x => x.User.IsActive)
                 .Select(x => new UserServiceModel()
                 {
                     UserId = x.UserId,
@@ -32,6 +44,7 @@ namespace CarRentingSystem.Core.Services.Admin
             string[] dealerIds = result.Select(x => x.UserId).ToArray();
 
             result.AddRange(await repo.AllReadonly<ApplicationUser>()
+                .Where(x => x.IsActive)
                 .Where(u => dealerIds.Contains(u.Id) == false)
                 .Select(x => new UserServiceModel()
                 {

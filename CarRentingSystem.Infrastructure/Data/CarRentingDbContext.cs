@@ -86,14 +86,14 @@ namespace CarRentingSystem.Infrastructure.Data
                     RoleId = "0eff399e-8200-43c8-b58d-f790d528f98b"
                 });
 
-            //builder.ApplyConfiguration(new UserConfiguration());
-            //builder.ApplyConfiguration(new DealerConfiguration());
-            //builder.ApplyConfiguration(new CarConfiguration());
-            //builder.ApplyConfiguration(new ReservationConfiguration());
-            //builder.ApplyConfiguration(new DealershipConfiguration());
-            //builder.ApplyConfiguration(new ReservationPeriodConfiguration());
-            //builder.ApplyConfiguration(new CityConfiguration());
-            //builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new DealerConfiguration());
+            builder.ApplyConfiguration(new CarConfiguration());
+            builder.ApplyConfiguration(new ReservationConfiguration());
+            builder.ApplyConfiguration(new DealershipConfiguration());
+            builder.ApplyConfiguration(new ReservationPeriodConfiguration());
+            builder.ApplyConfiguration(new CityConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
 
             base.OnModelCreating(builder);
         }

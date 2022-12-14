@@ -24,7 +24,8 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                 NormalizedUserName = "dealer@mail.com",
                 Email = "dealer@mail.com",
                 NormalizedEmail = "dealer@mail.com",
-                FullName = "Dealer"
+                FullName = "Dealer",
+                IsActive = true,
             };
 
             user.PasswordHash = hasher.HashPassword(user, "dealer123");
@@ -37,7 +38,8 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                 NormalizedUserName = "guest@mail.com",
                 Email = "guest@mail.com",
                 NormalizedEmail = "guest@mail.com",
-                FullName = "Guest"
+                FullName = "Guest",
+                IsActive = true,
             };
 
             user.PasswordHash = hasher.HashPassword(user, "guest123");
@@ -50,7 +52,8 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                 FullName = "Luxury Dealer",
                 Email = "LuxuryDealer@abv.bg",
                 NormalizedEmail = "LuxuryDealer@abv.bg",
-                NormalizedUserName = "dealer123"
+                NormalizedUserName = "dealer123",
+                IsActive = true,
             };
 
             user.PasswordHash = hasher.HashPassword(user, "Dealer123");
@@ -63,7 +66,8 @@ namespace CarRentingSystem.Infrastructure.Data.Configuration
                 NormalizedUserName = "ADMIN",
                 FullName = "Georgi Peshev",
                 Email = "gosho123@abv.bg",
-                NormalizedEmail = "GOSHO123@ABV.BG"
+                NormalizedEmail = "GOSHO123@ABV.BG",
+                IsActive = true,
             };
 
             user.PasswordHash = hasher.HashPassword(user, "Gosho123");

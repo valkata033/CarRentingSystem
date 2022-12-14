@@ -54,7 +54,7 @@
                    asp-route-id="@Model.Id">Delete</a>
                     }
                     <p></p>
-                    if (!User.IsInRole(DealerRoleName))
+                    if (!User.IsInRole(DealerRoleName) && !User.IsInRole(AdminRoleName))
                     {
                         @if (Model.IsRented == false)
                         {

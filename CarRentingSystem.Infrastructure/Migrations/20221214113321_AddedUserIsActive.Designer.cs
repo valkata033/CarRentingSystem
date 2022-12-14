@@ -4,6 +4,7 @@ using CarRentingSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentingSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    partial class CarRentingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221214113321_AddedUserIsActive")]
+    partial class AddedUserIsActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +103,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7695597d-ebf5-4f10-a51f-dd0d01d58777",
+                            ConcurrencyStamp = "9171acf4-100a-4568-9a94-eaa60ee7a816",
                             Email = "dealer@mail.com",
                             EmailConfirmed = false,
                             FullName = "Dealer",
@@ -109,9 +111,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "dealer@mail.com",
                             NormalizedUserName = "dealer@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO087J6fuaXhm/sZwOGDsV6aDuvGV8m2a26pAl+jcmI1VL8gaTny8jIF6V3VAE7xlA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJMnNoVnkAhyGU7GDQzgTIbnrWcP/18rpRNHYnCdafaBnMRfpd5nTGBCCJ6S3OBI9w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c06d0cf9-134e-4ebe-804b-29a6c12f5bbc",
+                            SecurityStamp = "1cc47fa0-54bc-42b5-bfdb-efbd041155cc",
                             TwoFactorEnabled = false,
                             UserName = "dealer@mail.com"
                         },
@@ -119,7 +121,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dbc4e6d0-2a55-4c8c-9144-cc7b708b654c",
+                            ConcurrencyStamp = "8b83f0d6-7aec-4137-ab70-578404199abb",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             FullName = "Guest",
@@ -127,9 +129,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGFD5xCYPryD+qyqvlWCi0zeJ3Cpl5zvZLa+fy0zgsE6IRac0cOL2fL0hyZcA4jZVQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOPxdoIOw8uQn6K1rn9iBxDR5lRNab6xQUttjfAGaIqlhwWk0VCuDPzQrs000qwF2g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3af9ede3-0f73-4737-b850-adc6877e8c0f",
+                            SecurityStamp = "5a230da0-d6b3-4eb5-8fa6-a766f563c4e1",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -137,7 +139,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "4078b0fd-3914-461c-8c6b-06bda682647d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "389c2ef4-5c75-410b-bff8-24b9530aa302",
+                            ConcurrencyStamp = "b057c6ff-8ae6-438b-9d9e-399af914c46b",
                             Email = "LuxuryDealer@abv.bg",
                             EmailConfirmed = false,
                             FullName = "Luxury Dealer",
@@ -145,9 +147,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "LuxuryDealer@abv.bg",
                             NormalizedUserName = "dealer123",
-                            PasswordHash = "AQAAAAEAACcQAAAAED6DS8Mh6O4zT6IOfaCFqCn3b1Eea+QAfPPGStt2giX24qW3pfiwcKvTfXzUu47jGQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP4TGwJXXCLGmKNcDbNNMTVu6w/R1AXbf3kgbAOJSkIcUr8auHdApGGTaZV47muYuQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e4314e36-6716-41f5-9dda-ae50fb9227cb",
+                            SecurityStamp = "18644483-de51-4b41-9e7e-8b91769a696a",
                             TwoFactorEnabled = false,
                             UserName = "dealer123"
                         },
@@ -155,7 +157,7 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = "bcc313a0-a38a-42a2-a42c-d00f09a89c5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "41e0189c-9e34-4690-9976-8ac023a8d1ec",
+                            ConcurrencyStamp = "2755fea7-096e-4b65-86dc-1b31f21d6777",
                             Email = "gosho123@abv.bg",
                             EmailConfirmed = false,
                             FullName = "Georgi Peshev",
@@ -163,9 +165,9 @@ namespace CarRentingSystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GOSHO123@ABV.BG",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPuzr4rG96bHT5/eX5ljMrnXCo74EZiUijhsoXMfoANutaXs/Wh7L0J/8UUwDVxBVg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBtrAWYxNU2+8SaSPjShFNj3Zwhgo/FGbu8LegQlam3bMsp/kcmIsYomw3t9RbLl2Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b776b7b-21e3-4c0f-8fc8-360b8131e221",
+                            SecurityStamp = "5ab3c225-50a8-423d-a138-e1a32a1419ee",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -566,11 +568,11 @@ namespace CarRentingSystem.Infrastructure.Migrations
                         {
                             Id = 1,
                             CarId = 1,
-                            EndDate = new DateTime(2022, 12, 19, 16, 15, 28, 283, DateTimeKind.Local).AddTicks(9803),
+                            EndDate = new DateTime(2022, 12, 19, 13, 33, 20, 970, DateTimeKind.Local).AddTicks(6608),
                             IsActive = false,
                             Price = 200,
                             ReservationPeriodId = 2,
-                            StartDate = new DateTime(2022, 12, 14, 16, 15, 28, 283, DateTimeKind.Local).AddTicks(9760)
+                            StartDate = new DateTime(2022, 12, 14, 13, 33, 20, 970, DateTimeKind.Local).AddTicks(6563)
                         });
                 });
 

@@ -9,5 +9,7 @@ namespace CarRentingSystem.Infrastructure.Data.Models
         [Required]
         [StringLength(DataConstants.User.UserFullNameMaxValue)]
         public string FullName { get; set; } = null!;
+
+        public bool IsActive { get; set; } = true;
     }
 }
