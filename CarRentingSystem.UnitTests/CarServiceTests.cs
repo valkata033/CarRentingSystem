@@ -6,8 +6,6 @@ using CarRentingSystem.Infrastructure.Data;
 using CarRentingSystem.Infrastructure.Data.Common;
 using CarRentingSystem.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using NUnit.Framework;
 
 namespace CarRentingSystem.UnitTests
 {
@@ -28,8 +26,7 @@ namespace CarRentingSystem.UnitTests
             context = new CarRentingDbContext(contextOptions);
 
             context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-                
+            context.Database.EnsureCreated();   
         }
 
         [Test]
@@ -109,6 +106,29 @@ namespace CarRentingSystem.UnitTests
             await repo.SaveChangesAsync();
 
             var cars = await carService.AllCarsByUserId("aa");
+
+            Assert.That(cars.Any(x => x.Id == 2));
+            Assert.That(cars.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task ShouldReturnAllCars()
+        {
+            var repo = new Repository(context);
+            carService = new CarService(repo);
+
+            var user = new ApplicationUser() { Id = "aa", UserName = "", Email = "", FullName = "" };
+            await repo.AddAsync(user);
+
+            await repo.AddRangeAsync(new List<Car>()
+            {
+                new Car() { Id = 1, Brand = "", Model = "", Description = "", ImageUrl = "", PricePerDay = 0, Gearbox = 0, FuelType = 0, CategoryId = 0, DealerId = 1, IsActive = true, RenterId = "aa"},
+                new Car() { Id = 2, Brand = "", Model = "", Description = "", ImageUrl = "", PricePerDay = 0, Gearbox = 0, FuelType = 0, CategoryId = 0, DealerId = 1, IsActive = true, RenterId = "aa"},
+            });
+
+            await repo.SaveChangesAsync();
+
+            var cars = await carService.GetAllCarsAsync();
 
             Assert.That(cars.Any(x => x.Id == 2));
             Assert.That(cars.Count(), Is.EqualTo(2));
@@ -238,7 +258,20 @@ namespace CarRentingSystem.UnitTests
         }
 
         [Test]
-        public async Task ShouldReturnIfCarExist()
+        public async Task ShouldReturnIfCategoryExists()
+        {
+            var repo = new Repository(context);
+            carService = new CarService(repo);
+
+            await repo.AddAsync(new Category() { Id = 1, Name = "Sport" });
+
+            await repo.SaveChangesAsync();
+
+            Assert.That(await carService.CategoryExist(1), Is.True);
+        }
+
+        [Test]
+        public async Task ShouldReturnIfCarExists()
         {
             var repo = new Repository(context);
             carService = new CarService(repo);
