@@ -1,5 +1,6 @@
 ﻿using CarRentingSystem.Core.Contracts.Admin;
 using CarRentingSystem.Core.Models.Admin;
+using CarRentingSystem.Infrastructure.Data.GlobalConstants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using static CarRentingSystem.Areas.Administrator.Constants.AdminConstants;
@@ -38,8 +39,17 @@ namespace CarRentingSystem.Areas.Administrator.Controllers
 
         public async Task<IActionResult> Delete(string UserId)
         {
-            await userService.DeleteUser(UserId);
+            try
+            {
+                await userService.DeleteUser(UserId);
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Something went wrong! Could not delete user!";
+                return RedirectToAction(nameof(All));
+            }
 
+            TempData[MessageConstants.SuccessMessage] = "You deleted a user successfully!";
             cache.Remove(UsersCacheKey);
 
             return RedirectToAction(nameof(All));

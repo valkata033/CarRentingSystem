@@ -26,7 +26,7 @@
             <p>Category: <b>@Model.Category</b></p>
             <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
             <p></p>
-            <p>You can rent @Model.Brand @Model.Model for:</p>
+            @*<p>You can rent @Model.Brand @Model.Model for:</p>
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="btnratio1" autocomplete="off" checked>
                 <label class="btn btn-outline-primary" for="btnradio1" onclick="RenderPrice1()">3 days</label>
@@ -41,7 +41,7 @@
                 <label class="btn btn-outline-primary" for="btnradio3">30 days</label>
             </div>
 
-            <p>Price will be: RenderPrice() BGN</p>
+            <p>Price will be: RenderPrice() BGN</p>*@
 
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
@@ -78,6 +78,7 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Dealer Info</h5>
+                    <p class="card-text">Name:  @Model.Dealer.Name</p>
                     <p class="card-text">Email:  @Model.Dealer.Email</p>
                     <p class="card-text">Phone Number: @Model.Dealer.PhoneNumber</p>
                 </div>
@@ -86,15 +87,3 @@
     </div>
 </div>
 
-@section scripts {
-    <script type="text/javascript">
-        function RenderPrice()
-        {
-            $('#btnratio1').on('click', e => {
-                3 * @Model.PricePerDay
-            });
-
-
-        }
-    </script>
-}

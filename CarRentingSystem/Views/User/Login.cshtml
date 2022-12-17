@@ -21,11 +21,17 @@
                     <input asp-for="@Model.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+                <hr />
+                <div class="form-group text-center">
+                    <p></p>
+                    <a asp-controller="User" asp-action="Register">Register as a new user</a>
+                    <p></p>
+                </div>
                 <div class="text-center">
                     <button id="login-submit" type="submit" class="btn btn-primary">Sign in</button>
                 </div>
-                @*
-                <form id="external-account" asp-action="ExternalLogin" method="post" class="form-horizontal">
+                
+                @*<form id="external-account" asp-action="ExternalLogin" method="post" class="form-horizontal">
                     <div>
                         <p>
                             @foreach (var provider in Model.ExternalLogins)
@@ -35,10 +41,7 @@
                         </p>
                     </div>
                 </form>*@
-                <div class="form-group">
-                    <p></p>
-                    <a asp-controller="User" asp-action="Register">Register as a new user</a>
-                </div>
+                
             </form>
         </section>
     </div>

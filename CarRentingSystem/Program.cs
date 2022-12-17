@@ -23,14 +23,6 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CarRentingDbContext>();
 
-builder.Services.AddAuthentication()
-    .AddFacebook(options => 
-    {
-        options.AppId = "869920804052591";
-        options.AppSecret = "46cb398d1e6357e736ae9d28b4d879ed";
-    });
-    
-
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {

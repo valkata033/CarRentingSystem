@@ -23,7 +23,7 @@ namespace CarRentingSystem.Core.Services
             var carsQuery = repo.All<Car>()
                 .Where(c => c.IsActive == true)
                 .AsQueryable();
-
+             
             if (!string.IsNullOrWhiteSpace(category))
             {
                 carsQuery = repo.All<Car>()
@@ -55,6 +55,8 @@ namespace CarRentingSystem.Core.Services
                     Brand = x.Brand,
                     Model = x.Model,
                     ImageUrl = x.ImageUrl,
+                    FuelType = x.FuelType,
+                    Gearbox = x.Gearbox,
                     IsRented = x.RenterId != null,
                     PricePerDay = x.PricePerDay
                 })
