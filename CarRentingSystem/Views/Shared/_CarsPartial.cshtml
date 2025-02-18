@@ -2,7 +2,7 @@
 
 <div class="col-md-4">
     <div class="card mb-3">
-        <img class="card-img-top" src="@Model.ImageUrl" alt="Car Image">
+        <img class="card-img-top" height="300" src="@Model.ImageUrl" alt="Car Image">
         <div class="card-body text-center">
             <h4>@Model.Brand</h4>
             <h6>Model: <b>@Model.Model</b></h6>
@@ -19,3 +19,20 @@
         </div>
     </div>
 </div>
+
+<style>
+    .card-img-top{
+        width: 300px;
+        height: 200px;
+        margin: auto;
+        padding-top: 20px;
+    }
+
+    .col-md-4{
+        padding-top: 20px;
+    }
+
+    .card{
+        background-color: rgba(218,237,237,255);
+    }
+</style>
